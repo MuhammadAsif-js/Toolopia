@@ -1,0 +1,8 @@
+{
+  "title": "Image Compressor",
+  "subtitle": "Compress images quickly and privately in your browser.",
+  "paragraphs": [
+    "This tool reduces image file size while keeping acceptable quality. Select one or more images and download the compressed results instantly—no upload required.",
+    "Settings are conservative by default. Adjust compression in future releases for different quality/size trade-offs.",
+    "Note: Compression happens locally in your browser. For very large images or many files, the process may take longer depending on your device."]
+}

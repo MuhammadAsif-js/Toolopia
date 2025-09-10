@@ -1,0 +1,70 @@
+# Node modules
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Production
+build/
+dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*.local
+.env.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache
+.cache/
+.pnpm-store/
+
+# Tooling
+.next/cache/
+.cache/
+.vercel/
+.turbo/
+
+# Coverage
+coverage/
+
+# ESLint cache
+.eslintcache
+
+# Temporary files from Office/OneDrive and backups
+~$*
+~*.*
+OneDriveTemp/
+
+# Misc
+*.pem
+*.key
+
+# Ignore local IDE workspace settings
+*.code-workspace
+
+# Allow lockfiles to be committed
+# (Do not ignore package-lock.json / yarn.lock / pnpm-lock.yaml)

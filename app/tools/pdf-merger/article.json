@@ -1,0 +1,8 @@
+{
+  "title": "PDF Merger",
+  "subtitle": "Upload, reorder and merge multiple PDFs in the browser.",
+  "paragraphs": [
+    "Use this tool to combine several PDF files into a single PDF. You can reorder files by dragging them, and select page ranges per file before merging. All processing happens locally in your browser.",
+    "Files are never uploaded to a server when using this tool. For large PDFs this may use significant memory depending on your device."
+  ]
+}
