@@ -1,8 +1,9 @@
 # Explicit Netlify build command that installs with legacy-peer-deps then builds.
 [build]
-  command = "npm install --legacy-peer-deps && npm run build"
+  # Use npm ci for reproducible installs and force legacy peer deps; fallback to npm install if no package-lock
+  command = "if [ -f package-lock.json ]; then npm ci --legacy-peer-deps; else npm install --legacy-peer-deps; fi && npm run build"
   publish = "build"
 
 [build.environment]
   # Keep Node version in sync with .nvmrc
-  NODE_VERSION = "18.16.0"
+  NODE_VERSION = "18.18.0"
