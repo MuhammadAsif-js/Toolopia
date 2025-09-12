@@ -44,10 +44,10 @@ export function generateStaticParams() {
 }
 
 /*
- Replace direct server imports of tools with a static mapping of client-only dynamic imports.
- Add any additional tool names here if your app uses more.
+  Replace direct server imports of tool components with client-only dynamic imports.
+  Add other tool names used by your articles to this mapping.
 */
-const ToolComponents = {
+const ToolComponents: Record<string, React.ComponentType<any>> = {
 	PdfMerger: dynamic(() => import('../../tools/PdfMerger.js'), { ssr: false }),
 	TypingTest: dynamic(() => import('../../tools/TypingTest.js'), { ssr: false }),
 	FakeDetector: dynamic(() => import('../../tools/FakeDetector.js'), { ssr: false }),
@@ -71,8 +71,8 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   // e.g. const toolName = article.toolComponentName;
   const toolName = article.toolComponent;
 
-  // Select dynamic component (falls back to null if unknown)
-  const DynamicTool = (toolName && (ToolComponents as any)[toolName]) || null;
+  // Select dynamic client-only component (or null if not known)
+  const DynamicTool = toolName ? (ToolComponents as any)[toolName] ?? null : null;
 
   return (
     <ArticleLayout article={article}>
