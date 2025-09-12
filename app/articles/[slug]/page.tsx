@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { TOOLS } from '@/lib/tools';
 import { ArticleLayout } from '@/components/article-layout';
 import { Metadata } from 'next';
+import React from 'react';
+import dynamic from 'next/dynamic';
 
 interface ArticlePageProps {
   params: { slug: string };
@@ -41,6 +43,23 @@ export function generateStaticParams() {
   }));
 }
 
+/*
+ Replace direct server imports of tools with a static mapping of client-only dynamic imports.
+ Add any additional tool names here if your app uses more.
+*/
+const ToolComponents = {
+	PdfMerger: dynamic(() => import('../../tools/PdfMerger.js'), { ssr: false }),
+	TypingTest: dynamic(() => import('../../tools/TypingTest.js'), { ssr: false }),
+	FakeDetector: dynamic(() => import('../../tools/FakeDetector.js'), { ssr: false }),
+	CurrencyConverter: dynamic(() => import('../../tools/CurrencyConverter.js'), { ssr: false }),
+	PdfToExcel: dynamic(() => import('../../tools/PdfToExcel.js'), { ssr: false }),
+	TimeZoneConverter: dynamic(() => import('../../tools/TimeZoneConverter.js'), { ssr: false }),
+	ProductivityTool: dynamic(() => import('../../tools/ProductivityTool.js'), { ssr: false }),
+	ScreenChecker: dynamic(() => import('../../tools/ScreenChecker.js'), { ssr: false }),
+	ImageCompressor: dynamic(() => import('../../tools/ImageCompressor.js'), { ssr: false }),
+	ColorTool: dynamic(() => import('../../tools/ColorTool.js'), { ssr: false }),
+};
+
 export default function ArticlePage({ params }: ArticlePageProps) {
   const article = TOOLS.find((tool) => tool.slug === params.slug);
 
@@ -48,13 +67,12 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  // Dynamically import the tool component
-  let ToolComponent = null;
-  try {
-    ToolComponent = require(`@/components/tools/${article.toolComponent}`).default;
-  } catch (e) {
-    console.error(`Failed to load tool component: ${article.toolComponent}`, e);
-  }
+  // Determine tool name from article data / slug as before
+  // e.g. const toolName = article.toolComponentName;
+  const toolName = article.toolComponent;
+
+  // Select dynamic component (falls back to null if unknown)
+  const DynamicTool = (toolName && (ToolComponents as any)[toolName]) || null;
 
   return (
     <ArticleLayout article={article}>
@@ -66,13 +84,13 @@ export default function ArticlePage({ params }: ArticlePageProps) {
       </section>
 
       {/* Tool Demo Section */}
-      {ToolComponent && (
+      {DynamicTool && (
         <section id="tool-demo" className="mb-16 p-6 bg-card rounded-lg border">
           <h2 className="text-2xl font-semibold mb-6 flex items-center">
             Try the {article.title}
           </h2>
           <div className="bg-background/50 p-4 rounded-md">
-            <ToolComponent />
+            <DynamicTool />
           </div>
         </section>
       )}
