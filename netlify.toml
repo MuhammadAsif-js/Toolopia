@@ -1,0 +1,8 @@
+# Explicit Netlify build command that installs with legacy-peer-deps then builds.
+[build]
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "build"
+
+[build.environment]
+  # Keep Node version in sync with .nvmrc
+  NODE_VERSION = "18.16.0"
