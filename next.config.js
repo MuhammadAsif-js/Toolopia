@@ -1,11 +1,11 @@
 /** Next.js config for static export (App Router) */
 const nextConfig = {
   output: "export",
+  trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  // Optional: generate folder-per-route HTML (useful on static hosts)
-  trailingSlash: true
+  }
 };
 
+module.exports = nextConfig;
 module.exports = nextConfig;
