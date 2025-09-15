@@ -8,9 +8,9 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# --- If you prefer a static export workflow instead of the plugin, use:
+# If you want a static export instead, use:
 # [build]
 #   command = "npm run build:export"
 #   publish = "out"
-#
+# and remove the [[plugins]] section.
 # (Then comment out or remove the [[plugins]] section above.)
