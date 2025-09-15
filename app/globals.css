@@ -66,3 +66,5 @@ body {
 
 a { color: #2563eb; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
+.text-muted-foreground { color: var(--muted); }
+.bg-card { background: #f9fafb; }
