@@ -4,12 +4,13 @@
   command = "npm run build"
   # plugin will set the correct publish dir (.netlify/next) so you can leave this blank or set to ".netlify/next"
   publish = ".netlify/next"
-ded for static export...
-[build.environment]
-  # Keep Node version in sync with .nvmrc
-  NODE_VERSION = "18.18.0"  # Keep Node version in sync with .nvmrc
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
-
-
-  package = "@netlify/plugin-nextjs"[[plugins]]  NODE_VERSION = "18.18.0"
+# --- If you prefer a static export workflow instead of the plugin, use:
+# [build]
+#   command = "npm run build:export"
+#   publish = "out"
+#
+# (Then comment out or remove the [[plugins]] section above.)
