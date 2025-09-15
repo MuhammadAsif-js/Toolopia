@@ -1,14 +1,14 @@
 # Explicit Netlify build command that installs with legacy-peer-deps then builds.
 [build]
   # Use npm ci for reproducible installs and force legacy peer deps; fallback to npm install if no package-lock
-  command = "npm run build"
+  command = "npm run build:export"
   # plugin will set the correct publish dir (.netlify/next) so you can leave this blank or set to ".netlify/next"
-  publish = ".netlify/next"
+  publish = "out"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-# If you want a static export instead, use:
+# If you later need App Router / SSR support, revert to using the Netlify Next.js plugin:
+# [[plugins]]
+#   package = "@netlify/plugin-nextjs"
+# and change the build command back to "npm run build" (plugin will produce .netlify/next).
 # [build]
 #   command = "npm run build:export"
 #   publish = "out"

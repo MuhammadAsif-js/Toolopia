@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:export": "next build && next export -o out",
     "start": "next start",
-    "export": "next export -o out",
-    "build:export": "next build && next export -o out"
+    "export": "next export -o out"
   },
   "dependencies": {
     "@radix-ui/react-icons": "1.3.0",
