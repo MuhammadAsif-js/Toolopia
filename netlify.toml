@@ -1,7 +1,7 @@
 # Explicit Netlify build command that installs with legacy-peer-deps then builds.
 [build]
   # Use npm ci for reproducible installs and force legacy peer deps; fallback to npm install if no package-lock
-  command = "npm run build:export"
+  command = "npm run build"
   # plugin will set the correct publish dir (.netlify/next) so you can leave this blank or set to ".netlify/next"
   publish = "out"
 
