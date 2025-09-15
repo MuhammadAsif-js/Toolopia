@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+// Export a client-only dynamic import of the actual TSX component to avoid SSR/window issues
 import dynamic from 'next/dynamic';
 
-// Dynamically import the TSX ScreenChecker client-side to prevent SSR "window is not defined" and satisfy './ScreenChecker' imports
-const ScreenChecker = dynamic(() => import('./ScreenChecker.tsx').then(m => m.default), { ssr: false });
-
-export default function ScreenChecker() {
+export default dynamic(
+  () => import('./ScreenChecker.tsx').then((m) => m.default),
+  { ssr: false }
+);
   // Prevent any window access during SSR by only enabling client behavior after mount.
   const [isClient, setIsClient] = useState(false);
   const [width, setWidth] = useState(null);
