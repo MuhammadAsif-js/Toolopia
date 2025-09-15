@@ -1,20 +1,16 @@
-import dynamic from 'next/dynamic';
+"use client";
 
-export default dynamic(
-  () => import('./ScreenChecker.tsx').then((m) => m.default),
-  { ssr: false }
-);
-);
-  // Prevent any window access during SSR by only enabling client behavior after mount.
+import { useState, useEffect } from "react";
+
+export default function ScreenChecker() {
   const [isClient, setIsClient] = useState(false);
-  const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
+  const [width, setWidth] = useState<number | null>(null);
+  const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    // now we're guaranteed to be running in the browser
     setIsClient(true);
 
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const updateSize = () => {
       setWidth(window.innerWidth);
@@ -22,26 +18,28 @@ export default dynamic(
     };
 
     updateSize();
-    window.addEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
 
     return () => {
-      window.removeEventListener('resize', updateSize);
+      window.removeEventListener("resize", updateSize);
     };
   }, []);
 
   if (!isClient) {
-    // Render a placeholder during SSR / prerendering
-    return null;
+    return (
+      <div className="screen-checker text-center py-10">
+        <p className="text-muted-foreground">Loading screen size…</p>
+      </div>
+    );
   }
 
   return (
-    <div className="screen-checker">
-      <h3 className="font-medium text-lg mb-2">Screen Checker</h3>
-      <div>
-        <p className="text-muted-foreground">Width: {width ?? '—'}</p>
-        <p className="text-muted-foreground">Height: {height ?? '—'}</p>
+    <div className="screen-checker max-w-md mx-auto p-6 rounded-2xl shadow bg-white dark:bg-gray-900">
+      <h3 className="font-bold text-xl mb-4 text-center">📱 Screen Checker</h3>
+      <div className="space-y-2 text-center">
+        <p className="text-muted-foreground">Width: <span className="font-mono">{width ?? "—"}</span></p>
+        <p className="text-muted-foreground">Height: <span className="font-mono">{height ?? "—"}</span></p>
       </div>
-      {/* ...existing code... */}
     </div>
   );
 }
