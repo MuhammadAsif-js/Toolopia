@@ -1,9 +1,12 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 import { ThemeProvider } from '../components/theme-provider'
 import { Navbar } from '../components/navbar'
 import { Footer } from '../components/footer'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -55,7 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <meta name="theme-color" content="#ffffff" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>
+      <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Navbar />
           <main className="pt-16 min-h-[calc(100vh-160px)]">{children}</main>
