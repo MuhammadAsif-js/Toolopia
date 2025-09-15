@@ -68,11 +68,11 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   }
 
   // Determine tool name from article data / slug as before
-  // e.g. const toolName = article.toolComponentName;
   const toolName = article.toolComponent;
 
-  // Select dynamic client-only component (or null if not known)
-  const DynamicTool = toolName ? (ToolComponents as any)[toolName] ?? null : null;
+  // Client-only check: avoid resolving/rendering dynamic tool during SSR/prerender
+  const isClient = typeof window !== 'undefined';
+  const DynamicTool = isClient && toolName ? (ToolComponents as any)[toolName] ?? null : null;
 
   return (
     <ArticleLayout article={article}>

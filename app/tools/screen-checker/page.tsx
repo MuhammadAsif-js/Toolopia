@@ -1,20 +1,27 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ScreenChecker() {
   const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
   });
 
   // Update dimensions on resize
-  React.useEffect(() => {
+  useEffect(() => {
+    // Ensure we're in the browser before setting up the event listener
+    if (typeof window === 'undefined') return;
+
     const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     };
+    
+    // Initial call to set dimensions
+    handleResize();
+    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
