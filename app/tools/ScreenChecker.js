@@ -1,9 +1,9 @@
-// Export a client-only dynamic import of the actual TSX component to avoid SSR/window issues
 import dynamic from 'next/dynamic';
 
 export default dynamic(
   () => import('./ScreenChecker.tsx').then((m) => m.default),
   { ssr: false }
+);
 );
   // Prevent any window access during SSR by only enabling client behavior after mount.
   const [isClient, setIsClient] = useState(false);
