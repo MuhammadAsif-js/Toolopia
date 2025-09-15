@@ -1,9 +1,15 @@
 # Explicit Netlify build command that installs with legacy-peer-deps then builds.
 [build]
   # Use npm ci for reproducible installs and force legacy peer deps; fallback to npm install if no package-lock
-  command = "if [ -f package-lock.json ]; then npm ci --legacy-peer-deps; else npm install --legacy-peer-deps; fi && npm run build"
-  publish = "build"
-
+  command = "npm run build"
+  # plugin will set the correct publish dir (.netlify/next) so you can leave this blank or set to ".netlify/next"
+  publish = ".netlify/next"
+ded for static export...
 [build.environment]
   # Keep Node version in sync with .nvmrc
-  NODE_VERSION = "18.18.0"
+  NODE_VERSION = "18.18.0"  # Keep Node version in sync with .nvmrc
+
+
+
+
+  package = "@netlify/plugin-nextjs"[[plugins]]  NODE_VERSION = "18.18.0"
