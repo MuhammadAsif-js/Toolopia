@@ -1,6 +1,6 @@
 {
   "name": "toolopia",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "18.x"
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.9.0",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.4.1",
     "@types/pdf-parse": "latest",
     "@types/react": "^18.2.21",
