@@ -2,32 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Minimal global styles to ensure CSS loads after static export */
+/* Unified CSS variables used across the site */
 :root {
   --bg: #ffffff;
   --fg: #111827;
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
+  --card: #f8fafc;
   --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
+  --popover: #ffffff;
   --popover-foreground: 222.2 84% 4.9%;
   --primary: 221.2 83.2% 53.3%;
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
   --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted-foreground: #6b7280;
   --accent: 210 40% 96.1%;
   --accent-foreground: 222.2 47.4% 11.2%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
+  --border: #e6eef6;
+  --input: #e6eef6;
   --ring: 221.2 83.2% 53.3%;
   --radius: 0.75rem;
 }
 
+/* Dark mode overrides (kept but normalized) */
 .dark {
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
@@ -50,16 +51,19 @@
   --ring: 224.3 76.3% 48%;
 }
 
+/* Body: avoid @apply of non-Tailwind utilities; use variables directly */
 body {
-  @apply bg-background text-foreground min-h-screen antialiased;
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: var(--bg);
-  color: var(--fg);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
+/* Gradient text utility (uses Tailwind utilities via @apply — acceptable) */
 .gradient-text {
   @apply bg-gradient-to-r from-indigo-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent dark:from-indigo-300 dark:via-sky-300 dark:to-cyan-300;
 }
@@ -67,15 +71,17 @@ body {
 a { color: #2563eb; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* CSS variables used across the site */
+/* Minimal fallback variables/utilities to prevent build-time missing-class errors */
 :root {
-  --background: #ffffff;
-  --card: #f8fafc;
+  --background: 0 0% 100%;
   --fg: #111827;
   --muted-foreground: #6b7280;
 }
 
-/* Provide simple utility classes used in templates to avoid build-time missing-class errors */
-.bg-background { background-color: var(--background); }
+/* Provide simple utility classes used in templates */
+.bg-background { background-color: hsl(var(--background)); }
 .bg-card { background-color: var(--card); }
 .text-muted-foreground { color: var(--muted-foreground); }
+
+/* Add missing utility so references to text-foreground do not fail in production */
+.text-foreground { color: hsl(var(--foreground)); }
