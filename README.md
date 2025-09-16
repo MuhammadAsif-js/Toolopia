@@ -1,4 +1,4 @@
-# EasyLife Tool Web
+# toolopia
 
 Production-ready Next.js 15 (app dir) toolkit with Tailwind CSS, shadcn/ui style system, Framer Motion animations, and two sample tools.
 
