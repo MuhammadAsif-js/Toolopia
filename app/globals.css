@@ -66,5 +66,16 @@ body {
 
 a { color: #2563eb; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
-.text-muted-foreground { color: var(--muted); }
-.bg-card { background: #f9fafb; }
+
+/* CSS variables used across the site */
+:root {
+  --background: #ffffff;
+  --card: #f8fafc;
+  --fg: #111827;
+  --muted-foreground: #6b7280;
+}
+
+/* Provide simple utility classes used in templates to avoid build-time missing-class errors */
+.bg-background { background-color: var(--background); }
+.bg-card { background-color: var(--card); }
+.text-muted-foreground { color: var(--muted-foreground); }
