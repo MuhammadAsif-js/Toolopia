@@ -39,29 +39,32 @@ export const metadata: Metadata = {
     description: 'All-in-one free online tools.',
     images: ['/og.jpg']
   },
-  icons: {
-    icon: '/favicon.ico'
-  }
+  // Favicon is handled by app/icon.png (Next App Router)
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.className}>
       <head>
         <meta name="apple-mobile-web-app-title" content="Toolopia" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <link rel="icon" href="/favicon.ico" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+            <link rel="manifest" href="/site.webmanifest" />
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+            <meta name="msapplication-TileColor" content="#da532c" />
+            <meta name="theme-color" content="#ffffff" />
+        {/* Set initial theme before React hydration to avoid flash and ensure dark mode works immediately */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{const s=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const t=localStorage.getItem('theme');const e=t==='system'?s:(t||s);const c=document.documentElement.classList;c.remove('light','dark');if(e==='dark'){c.add('dark')}else{c.add('light')}}catch(e){}})();`
+          }}
+        />
       </head>
-      <body className={inter.className}>
+  <body className="bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Navbar />
-          <main className="pt-16 min-h-[calc(100vh-160px)]">{children}</main>
+          <main className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 min-h-[calc(100vh-160px)]">
+            {children}
+          </main>
           <Footer />
           <div id="toast-root" />
         </ThemeProvider>

@@ -15,7 +15,7 @@ export function BannerSlider() {
     return ()=>clearInterval(id)
   }, [])
   return (
-  <div className="relative h-72 md:h-96 overflow-hidden rounded-xl border bg-gradient-to-br from-indigo-50/60 via-sky-50 to-cyan-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-cyan-950/30">
+  <div className="relative h-72 md:h-96 overflow-hidden rounded-xl border bg-gradient-to-br from-indigo-50/60 via-sky-50 to-cyan-50 dark:from-indigo-950/40 dark:via-sky-950/30 dark:to-cyan-950/30 px-4">
       <AnimatePresence mode="wait">
         {banners.map((b,i) => i===index && (
           <motion.div key={b.id} initial={{opacity:0,x:40}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-40}} transition={{duration:.5}} className="absolute inset-0 flex items-center justify-center w-full h-full">

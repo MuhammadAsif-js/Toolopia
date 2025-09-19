@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { cn } from '../lib/utils'
 
 type Theme = 'light' | 'dark' | 'system'
@@ -21,20 +21,14 @@ export function ThemeProvider({
   enableSystem = true,
   disableTransitionOnChange = false
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme)
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return defaultTheme
+    const stored = window.localStorage.getItem('theme') as Theme | null
+    return stored || defaultTheme
+  })
 
-  useEffect(() => {
-    if (theme === 'system' && enableSystem) {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)')
-      const system = mq.matches ? 'dark' : 'light'
-      applyTheme(system as Theme)
-    } else {
-      applyTheme(theme)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [theme])
-
-  function applyTheme(t: Theme) {
+  // Apply theme to document
+  const applyTheme = useCallback((t: Theme) => {
     const root = document.documentElement
     const value = t === 'system' ? '' : t
     if (attribute === 'class') {
@@ -43,12 +37,40 @@ export function ThemeProvider({
     } else {
       root.setAttribute(attribute, value)
     }
-  }
+  }, [attribute])
 
-  const value = {
-    theme,
-    setTheme
-  }
+  // Set theme and persist
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t)
+    window.localStorage.setItem('theme', t)
+    if (t === 'system' && enableSystem) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const system = mq.matches ? 'dark' : 'light'
+      applyTheme(system as Theme)
+    } else {
+      applyTheme(t)
+    }
+  }, [applyTheme, enableSystem])
+
+  // On mount, apply theme and listen for system changes
+  useEffect(() => {
+    if (theme === 'system' && enableSystem) {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)')
+      const system = mq.matches ? 'dark' : 'light'
+      applyTheme(system as Theme)
+      const handler = (e: MediaQueryListEvent) => {
+        if (window.localStorage.getItem('theme') === 'system') {
+          applyTheme(e.matches ? 'dark' : 'light')
+        }
+      }
+      mq.addEventListener('change', handler)
+      return () => mq.removeEventListener('change', handler)
+    } else {
+      applyTheme(theme)
+    }
+  }, [theme, enableSystem, applyTheme])
+
+  const value = React.useMemo(() => ({ theme, setTheme }), [theme, setTheme])
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
 }

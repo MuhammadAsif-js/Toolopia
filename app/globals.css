@@ -3,38 +3,37 @@
 @tailwind utilities;
 
 /* Unified CSS variables used across the site */
+
 :root {
-  --bg: #ffffff;
-  --fg: #111827;
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: #f8fafc;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: #ffffff;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
+  --background: 0 0% 100%; /* hsl(0,0%,100%) = #fff */
+  --foreground: 222.2 47.4% 11.2%; /* hsl(222.2,47.4%,11.2%) = #18181b */
+  --card: 210 40% 98%; /* hsl(210,40%,98%) = #f8fafc */
+  --card-foreground: 222.2 47.4% 11.2%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 47.4% 11.2%;
+  --primary: 221.2 83.2% 53.3%; /* hsl(221.2,83.2%,53.3%) = #3b82f6 */
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
   --muted: 210 40% 96.1%;
-  --muted-foreground: #6b7280;
+  --muted-foreground: 215 20.2% 65.1%;
   --accent: 210 40% 96.1%;
   --accent-foreground: 222.2 47.4% 11.2%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-  --border: #e6eef6;
-  --input: #e6eef6;
+  --border: 210 40% 90%;
+  --input: 210 40% 90%;
   --ring: 221.2 83.2% 53.3%;
   --radius: 0.75rem;
 }
 
 /* Dark mode overrides (kept but normalized) */
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
+  --background: 222.2 47.4% 11.2%; /* hsl(222.2,47.4%,11.2%) = #18181b */
+  --foreground: 210 40% 98%; /* hsl(210,40%,98%) = #f1f5f9 */
+  --card: 222.2 47.4% 11.2%;
   --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
+  --popover: 222.2 47.4% 11.2%;
   --popover-foreground: 210 40% 98%;
   --primary: 217.2 91.2% 59.8%;
   --primary-foreground: 222.2 47.4% 11.2%;
@@ -65,23 +64,70 @@ body {
 
 /* Gradient text utility (uses Tailwind utilities via @apply — acceptable) */
 .gradient-text {
-  @apply bg-gradient-to-r from-indigo-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent dark:from-indigo-300 dark:via-sky-300 dark:to-cyan-300;
+  @apply bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-300 dark:to-emerald-300;
 }
 
 a { color: #2563eb; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* Minimal fallback variables/utilities to prevent build-time missing-class errors */
-:root {
-  --background: 0 0% 100%;
-  --fg: #111827;
-  --muted-foreground: #6b7280;
+/* Make anchors follow the primary color token */
+a { color: hsl(var(--primary)); text-decoration: none; }
+
+/* Base layer: set default border color to theme token so `border` uses --border */
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
 }
 
-/* Provide simple utility classes used in templates */
+/* Provide simple utility classes used in templates (using HSL variables) */
 .bg-background { background-color: hsl(var(--background)); }
-.bg-card { background-color: var(--card); }
-.text-muted-foreground { color: var(--muted-foreground); }
-
-/* Add missing utility so references to text-foreground do not fail in production */
+.bg-card { background-color: hsl(var(--card)); }
+.text-muted-foreground { color: hsl(var(--muted-foreground)); }
 .text-foreground { color: hsl(var(--foreground)); }
+
+/* Hero animated gradient utilities */
+@keyframes gradient-shift {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes glow-fade {
+  0%,100% { opacity:.4; transform: scale(1); }
+  50% { opacity:.7; transform: scale(1.05); }
+}
+.animate-gradient-text {
+  background: linear-gradient(110deg,#06b6d4 0%,#3b82f6 22%,#6366f1 45%,#8b5cf6 68%,#06b6d4 100%);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 18s ease-in-out infinite;
+}
+.hero-glow {
+  position:absolute;inset:0;pointer-events:none;filter:blur(60px);opacity:.35;
+  background: radial-gradient(circle at 30% 40%,rgba(56,189,248,.35),transparent 60%),
+              radial-gradient(circle at 70% 60%,rgba(99,102,241,.30),transparent 65%);
+  animation: glow-fade 10s ease-in-out infinite;
+}
+
+/* Soft fading mask for long single-line gradients */
+.text-fade-edges {
+  -webkit-mask-image: linear-gradient(to right,transparent,rgba(0,0,0,.85) 12%,rgba(0,0,0,1) 50%,rgba(0,0,0,.85) 88%,transparent);
+          mask-image: linear-gradient(to right,transparent,rgba(0,0,0,.85) 12%,rgba(0,0,0,1) 50%,rgba(0,0,0,.85) 88%,transparent);
+}
+
+/* Rounded translucent backing for hero title if needed */
+.hero-pill {
+  position:relative;
+  display:inline-block;
+  padding:0.65rem 1.25rem;
+  border-radius:2.5rem;
+  background:linear-gradient(135deg,rgba(255,255,255,0.65),rgba(255,255,255,0.15));
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  box-shadow:0 4px 24px -4px rgba(59,130,246,0.35),0 2px 6px -1px rgba(0,0,0,.15);
+}
+.dark .hero-pill {
+  background:linear-gradient(135deg,rgba(30,41,59,0.55),rgba(15,23,42,0.35));
+  box-shadow:0 4px 28px -4px rgba(59,130,246,0.45),0 2px 6px -1px rgba(0,0,0,.6);
+}

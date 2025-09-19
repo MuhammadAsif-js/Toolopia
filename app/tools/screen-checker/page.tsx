@@ -29,7 +29,7 @@ export default function ScreenChecker() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh]">
       <h1 className="text-2xl font-bold mb-4">Screen Checker</h1>
-      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 shadow">
+  <div className="bg-card rounded-lg p-6 shadow border">
         <p className="text-lg">Width: <span className="font-mono">{dimensions.width}px</span></p>
         <p className="text-lg">Height: <span className="font-mono">{dimensions.height}px</span></p>
       </div>

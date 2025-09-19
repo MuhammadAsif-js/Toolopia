@@ -153,7 +153,7 @@ export default function ToolsPage() {
 
           {/* Category Filters */}
           <div className={cn(
-            'flex flex-wrap gap-2 mb-6 overflow-x-auto py-2',
+            'flex flex-wrap gap-2 mb-10 overflow-x-auto py-2',
             isFilterOpen ? 'block' : 'hidden md:flex'
           )}>
             {categories.map((category) => (
@@ -173,8 +173,8 @@ export default function ToolsPage() {
           </div>
         </div>
 
-        {/* Results Count */}
-        <div className="mb-6">
+  {/* Results Count */}
+  <div className="mb-8">
           <p className="text-sm text-muted-foreground">
             {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'} found
             {selectedCategory !== 'All' ? ` in ${selectedCategory}` : ''}

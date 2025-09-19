@@ -36,22 +36,22 @@ function CustomDropdown({ label, value, onChange, options }: CustomDropdownProps
   const filtered = options.filter((opt: string) => opt.toLowerCase().includes(search.toLowerCase()));
   return (
     <div className="relative">
-      <label className="text-xs text-gray-900 dark:text-gray-100 font-semibold">{label}</label>
+      <label className="text-xs font-semibold text-muted-foreground">{label}</label>
       <button
         type="button"
-        className="mt-1 w-full rounded border px-3 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-left"
+        className="mt-1 w-full rounded border px-3 py-2 bg-card text-foreground text-left"
         onClick={() => setOpen(o => !o)}
       >
         {value || `Select ${label}`}
       </button>
       {open && (
-        <div className="absolute z-10 mt-1 w-full rounded border bg-white dark:bg-gray-800 shadow-lg max-h-60 overflow-auto">
+        <div className="absolute z-10 mt-1 w-full rounded border bg-popover shadow-lg max-h-60 overflow-auto">
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder={`Search ${label}...`}
-            className="w-full px-3 py-2 border-b bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full px-3 py-2 border-b bg-popover text-foreground"
             autoFocus
           />
           {filtered.length === 0 ? (
@@ -60,7 +60,7 @@ function CustomDropdown({ label, value, onChange, options }: CustomDropdownProps
             filtered.map((opt: string) => (
               <div
                 key={opt}
-                className={`px-3 py-2 cursor-pointer hover:bg-accent text-sm ${opt === value ? 'bg-primary text-white' : ''}`}
+                className={`px-3 py-2 cursor-pointer hover:bg-accent text-sm ${opt === value ? 'bg-primary text-primary-foreground' : ''}`}
                 onClick={() => { onChange(opt); setOpen(false); setSearch(''); }}
               >
                 {opt}
@@ -113,8 +113,8 @@ export default function TimeZoneConverterTool() {
 
           <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
             <div className="col-span-1 md:col-span-1">
-              <label className="text-xs text-gray-900 dark:text-gray-100 font-semibold">Time</label>
-              <input type="time" value={time} onChange={e=>setTime(e.target.value)} className="mt-1 w-full rounded border px-3 py-2 transition-shadow focus:shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100" />
+              <label className="text-xs font-semibold text-muted-foreground">Time</label>
+              <input type="time" value={time} onChange={e=>setTime(e.target.value)} className="mt-1 w-full rounded border px-3 py-2 transition-shadow focus:shadow-md bg-background text-foreground" />
             </div>
 
             <CustomDropdown

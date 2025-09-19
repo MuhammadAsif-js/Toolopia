@@ -8,7 +8,7 @@ export function AdSlot({ enabled = false, variant = 'inline', className = '' }: 
 
   // Example visible placeholder for development; real ad code can replace this.
   return (
-    <div className={`${className} border border-dashed border-gray-300 bg-gray-50 p-3 text-center text-sm text-gray-600`}>
+  <div className={`${className} border border-dashed border-border bg-muted p-3 text-center text-sm text-muted-foreground`}>
       {variant === 'sidebar' ? 'Ad Sidebar (placeholder)' : variant === 'top' ? 'Top Ad (placeholder)' : 'Inline Ad (placeholder)'}
     </div>
   )

@@ -3,7 +3,7 @@ import Link from 'next/link'
 export function Footer() {
   return (
     <footer className="border-t py-10 mt-20 bg-gradient-to-br from-background via-background to-background/50">
-      <div className="container grid gap-8 md:grid-cols-3">
+      <div className="container px-4 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
         <div>
           <h3 className="font-semibold mb-2">Toolopia</h3>
           <p className="text-sm text-muted-foreground">Fast, free, and privacy-friendly utilities.</p>
@@ -24,7 +24,7 @@ export function Footer() {
           </ul>
         </div> */}
       </div>
-  <div className="container mt-8 text-xs text-muted-foreground">© {new Date().getFullYear()} Toolopia. All rights reserved.</div>
+  <div className="container px-4 mt-8 text-xs text-muted-foreground">© {new Date().getFullYear()} Toolopia. All rights reserved.</div>
     </footer>
   )
 }

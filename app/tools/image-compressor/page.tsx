@@ -31,7 +31,7 @@ export default function ImageCompressorPage() {
   }
 
   return (
-    <div className="container py-12 space-y-8">
+    <div className="container px-4 py-12 space-y-8">
       {/* Top ad slot (disabled by default) */}
       <AdSlot enabled={false} variant="top" className="w-full h-20 md:h-24" />
 
