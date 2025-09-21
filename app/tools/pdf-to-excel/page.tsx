@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import { FileUploadBox } from '../../../components/file-upload-box'
+import { ToolHeader } from '../../../components/tool-header'
 
 interface ConvertedItem {
   name: string
@@ -29,8 +30,8 @@ export default function PdfToExcelPage() {
   }
 
   return (
-    <div className="container py-12 space-y-8">
-      <h1 className="text-3xl font-bold tracking-tight">PDF to Excel</h1>
+    <div className="container py-8 sm:py-12 space-y-8">
+      <ToolHeader slug="pdf-to-excel" />
       <FileUploadBox accept="application/pdf" onFiles={handleFiles} processing={processing} progress={progress} />
       {items.length>0 && (
         <div className="space-y-4">

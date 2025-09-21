@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { AdSlot } from '../../../components/ad-slot'
 import articleData from './article.json'
 import { ALL_TIMEZONES } from '../../../lib/all-timezones'
+import { ToolHeader } from '../../../components/tool-header'
 
 const ZONES = [
   { city: 'New York', tz: 'America/New_York' },
@@ -89,11 +90,11 @@ export default function TimeZoneConverterTool() {
   }, [time, from, to])
 
   return (
-    <div className="container py-12">
+    <div className="container py-8 sm:py-12">
       <div className="space-y-6">
         <div className="flex items-start justify-between gap-6">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold tracking-tight">{articleData.title}</h1>
+            <ToolHeader slug="time-zone-converter" />
             {articleData.subtitle && <p className="text-muted-foreground mt-2">{articleData.subtitle}</p>}
           </div>
           <div className="w-72 hidden xl:block">

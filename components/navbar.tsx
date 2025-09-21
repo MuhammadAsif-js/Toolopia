@@ -18,7 +18,7 @@ const navLinks = [
       {
         title: 'Color Picker & Converter',
         description: 'Pick, convert and extract colors with our comprehensive color tool',
-        href: '/articles/color-tool',
+        href: '/tools/color-tool',
         category: 'Design',
         icon: 'Palette'
       },

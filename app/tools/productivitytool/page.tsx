@@ -424,7 +424,13 @@ export default function Page() {
       {/* Top bar */}
       <header className="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/40 dark:supports-[backdrop-filter]:bg-slate-900/30 border-b border-black/5 dark:border-white/10">
         <div className="max-w-6xl mx-auto flex items-center justify-between p-3">
-          <h1 className="text-lg sm:text-xl font-semibold tracking-tight">⏳ Pomodoro Pro</h1>
+          <div className="flex flex-col">
+            <h1 className="text-lg sm:text-xl font-semibold tracking-tight">⏳ Pomodoro Pro</h1>
+            <a href="/articles/productivitytool" className="mt-0.5 inline-flex items-center gap-1 text-xs text-primary hover:underline">
+              Read full guide
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3"><path d="M13.2 6.3a1 1 0 1 0-1.4 1.4L15.1 11H6a1 1 0 1 0 0 2h9.1l-3.3 3.3a1 1 0 1 0 1.4 1.4l5-5a1 1 0 0 0 0-1.4l-5-5Z"/></svg>
+            </a>
+          </div>
           <div className="flex items-center gap-2">
             <button
               className="px-3 py-1.5 rounded-xl border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition"

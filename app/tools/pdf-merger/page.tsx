@@ -5,6 +5,7 @@ import { PDFDocument } from 'pdf-lib'
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import articleData from './article.json'
 import { AdSlot } from '../../../components/ad-slot'
+import { ToolHeader } from '../../../components/tool-header'
 import { FileUploadBox } from '../../../components/file-upload-box'
 
 type Item = {
@@ -86,11 +87,11 @@ export default function PdfMergerPage() {
   }
 
   return (
-    <div className="container py-12">
+    <div className="container py-8 sm:py-12">
       <div className="space-y-6">
         <div className="flex items-start justify-between gap-6">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold tracking-tight">{articleData.title}</h1>
+            <ToolHeader slug="pdf-merger" />
             {articleData.subtitle && <p className="text-muted-foreground mt-2">{articleData.subtitle}</p>}
           </div>
           <div className="w-72 hidden xl:block">

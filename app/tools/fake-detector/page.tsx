@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react"; // Removed useMemo as it is not used
+import { ToolHeader } from '../../../components/tool-header'
 
 /**
  * Fake News Detector - Text Analyzer (client-side)
@@ -285,15 +286,12 @@ const FakeNewsDetector: React.FC = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 p-6">
+	    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 p-4 sm:p-6">
 			<div className="max-w-5xl mx-auto">
-				<header className="flex items-start justify-between gap-4 mb-6">
-					<div>
-						<h1 className="text-2xl font-bold">🕵️ Fake News Detector — Text Analyzer</h1>
-						<p className="text-sm opacity-80 mt-1">Paste an article or snippet. This tool uses client-side heuristics to show suspicious signals and a trust score (for guidance only).</p>
+					<div className="mb-4">
+						<ToolHeader slug="fake-detector" />
+						<p className="text-xs sm:text-sm opacity-80 mt-1">Client-side only • No text leaves your browser</p>
 					</div>
-					<div className="text-xs opacity-80">Client-side only • No text leaves your browser</div>
-				</header>
 
 				<div className="h-16 rounded-xl border border-dashed border-black/10 dark:border-white/10 mb-6 grid place-items-center bg-white/80 dark:bg-slate-900/80 text-black dark:text-white">Ad Space</div>
 

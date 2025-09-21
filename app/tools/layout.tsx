@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { TOOLS } from '../../lib/tools'
+import Link from 'next/link'
 
 export default function ToolsLayout({ children }: { children: ReactNode }) {
   return (
@@ -9,9 +10,9 @@ export default function ToolsLayout({ children }: { children: ReactNode }) {
         <p className="text-xs text-muted-foreground">Select a tool from the list or explore all tools.</p>
         <nav className="text-sm space-y-1">
           {TOOLS.filter((t, i, arr) => arr.findIndex(x => x.href === t.href) === i).map(tool => (
-            <a key={tool.href} href={tool.href} className="block rounded px-2 py-1 hover:bg-accent">
+            <Link key={tool.href} href={tool.href} className="block rounded px-2 py-1 hover:bg-accent">
               {tool.title}
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>

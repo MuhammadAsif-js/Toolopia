@@ -179,11 +179,17 @@ export default function ColorPaletteExtractor() {
   },[imageSrc]);
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 p-6">
+  <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 p-4 sm:p-6">
       <div className="max-w-5xl mx-auto">
-        <header className="flex items-center justify-between mb-6">
+        <header className="mb-4">
           <h1 className="text-2xl font-bold">🎨 Color Palette Extractor</h1>
-          <div className="text-sm opacity-80">Upload an image and get a palette — client-side, fast, private.</div>
+          <div className="text-xs sm:text-sm opacity-80">Upload an image and get a palette — client-side, fast, private.</div>
+            <div className="mt-2">
+              <a href="/articles/color-tool" className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+                Read full guide
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5"><path d="M13.2 6.3a1 1 0 1 0-1.4 1.4L15.1 11H6a1 1 0 1 0 0 2h9.1l-3.3 3.3a1 1 0 1 0 1.4 1.4l5-5a1 1 0 0 0 0-1.4l-5-5Z"/></svg>
+              </a>
+            </div>
         </header>
 
         <div className="h-16 rounded-xl border border-dashed border-black/10 dark:border-white/10 mb-6 grid place-items-center">Ad Space</div>

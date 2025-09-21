@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { TOOLS } from "@/lib/tools";
+import { Badge } from "@/components/ui/badge";
 
 const unitConversions = {
   length: {
@@ -69,6 +71,7 @@ function isCurrencyCode(t: string) {
 }
 
 export default function Currency() {
+  const meta = TOOLS.find(t => t.slug === 'currency-converter');
   // Conversion logic
   function handleConvert(input: string) {
     try {
@@ -154,7 +157,25 @@ export default function Currency() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 p-6">
       <div className="max-w-xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">💱 Currency & Unit Converter</h1>
+        <header className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant="outline" className="text-xs">{meta?.category || 'Utility'}</Badge>
+            {meta?.keywords?.slice(0,2).map(k => (
+              <Badge key={k} variant="secondary" className="text-[10px]">{k}</Badge>
+            ))}
+          </div>
+          <h1 className="text-2xl font-bold">{meta?.title || '💱 Currency & Unit Converter'}</h1>
+          <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">{meta?.description || 'Convert between currencies and common units.'}</p>
+          {meta?.slug && (
+            <div className="mt-3">
+              {/* Use a plain anchor to avoid adding a new import here */}
+              <a href={`/articles/${meta.slug}`} className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+                Read full guide
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5"><path d="M13.2 6.3a1 1 0 1 0-1.4 1.4L15.1 11H6a1 1 0 1 0 0 2h9.1l-3.3 3.3a1 1 0 1 0 1.4 1.4l5-5a1 1 0 0 0 0-1.4l-5-5Z"/></svg>
+              </a>
+            </div>
+          )}
+        </header>
         <div className="rounded-xl border p-4 bg-white/80 dark:bg-white/5 shadow mb-6">
           <label className="block text-sm font-medium mb-2">Enter conversion (e.g. <span className='font-mono'>10 usd to eur</span> or <span className='font-mono'>5 km in miles</span>)</label>
           <input

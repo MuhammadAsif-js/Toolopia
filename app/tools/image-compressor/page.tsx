@@ -4,6 +4,7 @@ import { FileUploadBox } from '../../../components/file-upload-box'
 import { compressImage } from '../../../lib/utils'
 import { Article } from '../../../components/article'
 import { AdSlot } from '../../../components/ad-slot'
+import { ToolHeader } from '../../../components/tool-header'
 
 interface CompressedItem {
   name: string
@@ -31,7 +32,8 @@ export default function ImageCompressorPage() {
   }
 
   return (
-    <div className="container px-4 py-12 space-y-8">
+    <div className="container px-4 py-8 sm:py-12 space-y-8">
+      <ToolHeader slug="image-compressor" />
       {/* Top ad slot (disabled by default) */}
       <AdSlot enabled={false} variant="top" className="w-full h-20 md:h-24" />
 
