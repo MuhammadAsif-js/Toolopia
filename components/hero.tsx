@@ -4,11 +4,11 @@ import { motion } from 'framer-motion'
 
 export function Hero() {
   return (
-  <section className="relative overflow-hidden py-20 md:py-28 lg:py-32">
+  <section className="relative overflow-visible sm:overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32">
       {/* Layered gradient & noise background */}
       <DecorBackground />
       <div className="container relative mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid items-start md:items-center gap-12 md:gap-16 lg:gap-20 md:grid-cols-2">
+        <div className="grid items-start md:items-center gap-10 sm:gap-12 md:gap-16 lg:gap-20 md:grid-cols-2">
           {/* Left Content */}
           <div className="relative z-10 text-center md:text-left">
             <BadgeCluster />
@@ -17,9 +17,9 @@ export function Hero() {
               initial={{opacity:0,y:32}}
               animate={{opacity:1,y:0}}
               transition={{duration:.65,ease:'easeOut'}}
-              className="mt-6 relative max-w-xl md:max-w-2xl mx-auto md:mx-0"
+              className="mt-5 sm:mt-6 relative max-w-full sm:max-w-xl md:max-w-2xl mx-auto md:mx-0 px-0"
             >
-              <div className="relative isolate rounded-3xl border border-white/50 dark:border-white/10 bg-white/70 dark:bg-slate-950/55 shadow-[0_8px_40px_-4px_rgba(0,0,0,0.25)] backdrop-blur-xl px-5 sm:px-7 md:px-8 py-7 sm:py-9 md:py-10 overflow-hidden ring-1 ring-black/5 dark:ring-white/5">
+              <div className="relative isolate rounded-2xl sm:rounded-3xl border border-white/50 dark:border-white/10 bg-white/80 dark:bg-slate-950/60 shadow-[0_6px_30px_-6px_rgba(0,0,0,0.35)] backdrop-blur-xl px-5 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10 overflow-hidden ring-1 ring-black/5 dark:ring-white/5 mx-2 sm:mx-0">
                 {/* subtle gradient accents */}
                 <div className="pointer-events-none absolute inset-0 opacity-[0.55] [background:radial-gradient(circle_at_15%_15%,rgba(99,102,241,0.35),transparent_55%),radial-gradient(circle_at_85%_80%,rgba(14,165,233,0.35),transparent_60%)]" />
                 <div className="pointer-events-none absolute -inset-px rounded-3xl [mask-image:linear-gradient(to_bottom,black,transparent_85%)] bg-[linear-gradient(to_bottom,rgba(255,255,255,0.65),rgba(255,255,255,0))] dark:bg-[linear-gradient(to_bottom,rgba(255,255,255,0.08),rgba(255,255,255,0))]" />
@@ -27,7 +27,7 @@ export function Hero() {
                   initial={{opacity:0,y:20}}
                   animate={{opacity:1,y:0}}
                   transition={{delay:.05,duration:.6}}
-                  className="relative font-extrabold tracking-tight text-[clamp(2.15rem,6.2vw,3.75rem)] leading-[1.07] bg-clip-text text-transparent bg-[linear-gradient(95deg,#6d28d9_0%,#6366f1_35%,#0ea5e9_70%,#22d3ee_100%)] drop-shadow-[0_4px_18px_rgba(56,189,248,0.22)]"
+                  className="relative font-extrabold tracking-tight text-[clamp(1.9rem,5.8vw,3.4rem)] leading-[1.08] sm:leading-[1.07] bg-clip-text text-transparent bg-[linear-gradient(95deg,#6d28d9_0%,#6366f1_35%,#0ea5e9_70%,#22d3ee_100%)] drop-shadow-[0_4px_18px_rgba(56,189,248,0.22)]"
                 >
                   Build, Convert & Optimize — Instantly.
                 </motion.h1>
@@ -35,7 +35,7 @@ export function Hero() {
                   initial={{opacity:0,y:22}}
                   animate={{opacity:1,y:0}}
                   transition={{delay:.12,duration:.55}}
-                  className="relative mt-5 sm:mt-6 text-[0.95rem] sm:text-base md:text-lg max-w-none leading-relaxed text-slate-800/90 dark:text-slate-100/90 tracking-[0.012em] drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]"
+                  className="relative mt-4 sm:mt-5 text-[0.9rem] sm:text-[0.95rem] md:text-base max-w-none leading-relaxed text-slate-800/90 dark:text-slate-100/90 tracking-[0.012em] drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]"
                 >
                   <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent dark:from-slate-100 dark:via-slate-200 dark:to-white">A focused ecosystem of privacy‑first utilities</span>—image optimization, document conversion, color, finance & productivity tooling—<span className="font-semibold text-slate-900 dark:text-white">refined for speed</span> and <span className="font-semibold text-slate-900 dark:text-white">zero friction</span>.
                 </motion.p>
@@ -43,13 +43,13 @@ export function Hero() {
                   initial={{opacity:0,y:18}}
                   animate={{opacity:1,y:0}}
                   transition={{delay:.2,duration:.5}}
-                  className="relative mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+                  className="relative mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start"
                 >
-                  <Link href="/tools" className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-sky-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all">
+                  <Link href="/tools" className="group inline-flex items-center justify-center gap-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-sky-600 px-6 sm:px-7 py-2.5 sm:py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all">
                     Explore Tools
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
                   </Link>
-                  <Link href="/about" className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur px-7 py-3 text-sm font-medium text-slate-800 dark:text-slate-100 hover:bg-white/95 dark:hover:bg-slate-900/70 hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-sm">
+                  <Link href="/about" className="inline-flex items-center justify-center gap-2 rounded-lg sm:rounded-xl border border-slate-900/10 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur px-6 sm:px-7 py-2.5 sm:py-3 text-sm font-medium text-slate-800 dark:text-slate-100 hover:bg-white/95 dark:hover:bg-slate-900/70 hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-sm">
                     About Platform
                   </Link>
                 </motion.div>
@@ -62,7 +62,7 @@ export function Hero() {
               initial={{opacity:0,y:24}}
               animate={{opacity:1,y:0}}
               transition={{delay:.55,duration:.55}}
-              className="mt-12 md:mt-14 grid grid-cols-3 gap-5 md:gap-6 max-w-md mx-auto md:mx-0"
+              className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-md mx-auto md:mx-0"
             >
               <Stat value="15+" label="Unified Tools" />
               <Stat value="0" label="Tracking Scripts" />
@@ -74,22 +74,22 @@ export function Hero() {
             initial={{opacity:0,scale:.9,y:40}}
             animate={{opacity:1,scale:1,y:0}}
             transition={{delay:.12,duration:.7,ease:'easeOut'}}
-            className="relative max-w-lg w-full mx-auto md:mx-0"
+            className="relative max-w-full sm:max-w-lg w-full mx-auto md:mx-0 px-2 sm:px-0"
           >
-            <div className="absolute -inset-6 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.25),transparent_70%)] blur-2xl opacity-70" />
-            <div className="relative rounded-2xl border border-white/10 dark:border-white/5 bg-gradient-to-br from-slate-50/70 to-white/5 dark:from-slate-900/60 dark:to-slate-800/40 backdrop-blur-xl shadow-2xl ring-1 ring-black/5 p-5 sm:p-6 overflow-hidden">
+            <div className="absolute -inset-3 sm:-inset-5 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.28),transparent_70%)] blur-xl sm:blur-2xl opacity-70" />
+            <div className="relative rounded-xl sm:rounded-2xl border border-white/10 dark:border-white/5 bg-gradient-to-br from-slate-50/75 to-white/10 dark:from-slate-900/60 dark:to-slate-800/40 backdrop-blur-xl shadow-xl ring-1 ring-black/5 p-4 sm:p-5 md:p-6 overflow-hidden mx-1 sm:mx-0">
               <div className="absolute right-0 top-0 w-64 h-64 bg-[radial-gradient(circle_at_75%_25%,#6366f1_0%,transparent_70%)] opacity-40" />
               <header className="flex items-center gap-2 text-[10px] sm:text-[11px] font-semibold text-foreground/80 dark:text-slate-100 mb-4 tracking-wide">
                 <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_0_4px_rgba(16,185,129,0.15)]" /> Live Preview
               </header>
               <PreviewTabs />
-              <div className="mt-5 sm:mt-6 grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4 text-[11px] sm:text-xs">
+              <div className="mt-4 sm:mt-5 grid grid-cols-2 gap-2.5 sm:gap-4 text-[10px] sm:text-[11px] md:text-xs">
                 <FeatureBadge icon="⚡" label="Fast by design" />
                 <FeatureBadge icon="🛡️" label="Privacy-first" />
                 <FeatureBadge icon="🧩" label="Modular architecture" />
                 <FeatureBadge icon="🌗" label="Adaptive theming" />
               </div>
-              <div className="mt-5 sm:mt-6 text-[10px] sm:text-[11px] text-foreground/70 dark:text-slate-300 leading-relaxed"><span className="font-medium text-foreground/90 dark:text-white">All operations run locally</span> in your browser. No upload — no waiting.</div>
+              <div className="mt-4 sm:mt-5 text-[9.5px] sm:text-[10px] md:text-[11px] text-foreground/70 dark:text-slate-300 leading-relaxed"><span className="font-medium text-foreground/90 dark:text-white">All operations run locally</span> in your browser. No upload — no waiting.</div>
             </div>
           </motion.div>
         </div>
