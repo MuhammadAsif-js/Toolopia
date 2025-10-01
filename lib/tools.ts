@@ -154,4 +154,17 @@ export const TOOLS: ToolMeta[] = [
       difficulty: 'beginner',
       useCases: ['Web design', 'Device testing', 'UI debugging']
     }
+    ,{
+      title: 'Business Valuation Estimator',
+      description: 'Estimate a private business valuation using EBITDA & Revenue multiples with a clean visual summary.',
+      slug: 'business-valuation-estimator',
+      href: '/tools/business-valuation-estimator',
+      category: 'Finance',
+      featured: true,
+      toolComponent: 'BusinessValuationEstimator',
+      publishedDate: '2025-10-01',
+      keywords: ['valuation', 'EBITDA', 'revenue multiple', 'finance'],
+      difficulty: 'beginner',
+      useCases: ['Startup valuation', 'Preliminary appraisal', 'Investor pitch prep']
+    }
 ]
