@@ -8,6 +8,25 @@ import { ArrowRight } from 'lucide-react';
 export function ToolHeader({ slug, className }: { slug: string; className?: string }) {
   const meta = TOOLS.find(t => t.slug === slug);
   if (!meta) return null;
+  // Record recent tool usage (client-only)
+  React.useEffect(() => {
+    if (!meta) return;
+    try {
+      const key = 'recentTools';
+      const raw = localStorage.getItem(key);
+      let arr: string[] = [];
+      if (raw) arr = JSON.parse(raw);
+      // Remove existing instance
+      arr = arr.filter(s => s !== meta.slug);
+      arr.unshift(meta.slug);
+      if (arr.length > 12) arr = arr.slice(0, 12);
+      localStorage.setItem(key, JSON.stringify(arr));
+      // Custom event to notify navbar to refresh
+      window.dispatchEvent(new CustomEvent('toolopia:recentToolsUpdated'));
+    } catch (e) {
+      // ignore storage errors (private mode, etc.)
+    }
+  }, [meta]);
   return (
     <header className={className ?? 'mb-6'}>
       <div className="flex flex-wrap items-center gap-2 mb-2">

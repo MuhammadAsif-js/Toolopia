@@ -27,6 +27,7 @@ export interface ToolMeta extends ArticleMetadata {
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
   useCases?: string[]
   prerequisites?: string[]
+  icon?: string // emoji or simple identifier
 }
 
 export const TOOLS: ToolMeta[] = [
@@ -42,6 +43,7 @@ export const TOOLS: ToolMeta[] = [
     keywords: ['image compression', 'reduce image size', 'web optimization', 'photo resizer'],
     difficulty: 'beginner',
     useCases: ['Website optimization', 'Email attachments', 'Social media posts'],
+    icon: '🖼️',
     sections: [
       {
         title: 'Why Compress Images?',
@@ -64,7 +66,8 @@ export const TOOLS: ToolMeta[] = [
     publishedDate: '2023-02-20',
     keywords: ['PDF to Excel', 'table extraction', 'data conversion', 'PDF converter'],
     difficulty: 'intermediate',
-    useCases: ['Data analysis', 'Report generation', 'Financial records']
+    useCases: ['Data analysis', 'Report generation', 'Financial records'],
+    icon: '📊'
   },
   { 
     title: 'Time Zone Converter', 
@@ -74,7 +77,8 @@ export const TOOLS: ToolMeta[] = [
     category: 'Utility',
     toolComponent: 'TimeZoneConverter',
     publishedDate: '2023-03-10',
-    keywords: ['time zone', 'time converter', 'world clock', 'meeting planner']
+    keywords: ['time zone', 'time converter', 'world clock', 'meeting planner'],
+    icon: '⏰'
   },
   { 
     title: 'Color Picker & Converter', 
@@ -85,7 +89,8 @@ export const TOOLS: ToolMeta[] = [
     featured: true,
     toolComponent: 'ColorTool',
     publishedDate: '2023-04-05',
-    keywords: ['color picker', 'color converter', 'hex to rgb', 'color palette']
+    keywords: ['color picker', 'color converter', 'hex to rgb', 'color palette'],
+    icon: '🎨'
   },
   { 
     title: 'Currency Converter', 
@@ -96,7 +101,8 @@ export const TOOLS: ToolMeta[] = [
     featured: true,
     toolComponent: 'CurrencyConverter',
     publishedDate: '2023-04-18',
-    keywords: ['currency exchange', 'forex', 'money converter', 'exchange rates']
+    keywords: ['currency exchange', 'forex', 'money converter', 'exchange rates'],
+    icon: '💱'
   },
   { 
     title: 'Fake Content Detector', 
@@ -106,7 +112,8 @@ export const TOOLS: ToolMeta[] = [
     category: 'Security',
     toolComponent: 'FakeDetector',
     publishedDate: '2023-05-22',
-    keywords: ['AI detection', 'fake news', 'content verification', 'deepfake detection']
+    keywords: ['AI detection', 'fake news', 'content verification', 'deepfake detection'],
+    icon: '🔍'
   },
   { 
     title: 'PDF Merger', 
@@ -116,7 +123,8 @@ export const TOOLS: ToolMeta[] = [
     category: 'PDF',
     toolComponent: 'PdfMerger',
     publishedDate: '2023-06-15',
-    keywords: ['merge PDF', 'combine PDF', 'PDF tools', 'document management']
+    keywords: ['merge PDF', 'combine PDF', 'PDF tools', 'document management'],
+    icon: '🧩'
   },
   { 
     title: 'Typing Speed Test', 
@@ -126,7 +134,8 @@ export const TOOLS: ToolMeta[] = [
     category: 'Productivity',
     toolComponent: 'TypingTest',
     publishedDate: '2023-07-10',
-    keywords: ['typing speed', 'WPM test', 'keyboard practice', 'typing tutor']
+    keywords: ['typing speed', 'WPM test', 'keyboard practice', 'typing tutor'],
+    icon: '⌨️'
   },
     {
       title: 'Productivity Tool (Pomodoro)',
@@ -139,7 +148,8 @@ export const TOOLS: ToolMeta[] = [
       publishedDate: '2023-08-01',
       keywords: ['pomodoro', 'productivity', 'task manager', 'focus timer'],
       difficulty: 'beginner',
-      useCases: ['Time management', 'Task tracking', 'Focus sessions']
+      useCases: ['Time management', 'Task tracking', 'Focus sessions'],
+      icon: '🍅'
     },
     {
       title: 'Screen Checker',
@@ -152,7 +162,8 @@ export const TOOLS: ToolMeta[] = [
       publishedDate: '2023-08-01',
       keywords: ['screen size', 'resolution', 'display info'],
       difficulty: 'beginner',
-      useCases: ['Web design', 'Device testing', 'UI debugging']
+      useCases: ['Web design', 'Device testing', 'UI debugging'],
+      icon: '🖥️'
     }
     ,{
       title: 'Business Valuation Estimator',
@@ -165,6 +176,7 @@ export const TOOLS: ToolMeta[] = [
       publishedDate: '2025-10-01',
       keywords: ['valuation', 'EBITDA', 'revenue multiple', 'finance'],
       difficulty: 'beginner',
-      useCases: ['Startup valuation', 'Preliminary appraisal', 'Investor pitch prep']
+      useCases: ['Startup valuation', 'Preliminary appraisal', 'Investor pitch prep'],
+      icon: '💼'
     }
 ]

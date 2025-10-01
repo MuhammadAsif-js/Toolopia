@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Grid2X2, List, Filter } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Grid2X2, List, Filter, ArrowUpRight, Star, Layers3, SortDesc } from 'lucide-react';
 import { ToolMeta, TOOLS } from '@/lib/tools';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { SectionShell, SectionHeader } from '@/components/section-shell'
 
 // Get unique categories from tools
 const categories = ['All', ...Array.from(new Set(TOOLS.map(tool => tool.category)))];
@@ -13,48 +14,69 @@ const categories = ['All', ...Array.from(new Set(TOOLS.map(tool => tool.category
 // Types for view mode
 type ViewMode = 'grid' | 'list';
 
-// Tool card component
-function ToolCard({ title, description, href, category, featured }: ToolMeta) {
+// FilterPanel component
+type FilterPanelProps = {
+  selectedCategory: string;
+  setSelectedCategory: (cat: string) => void;
+  categories: string[];
+};
+
+function FilterPanel({ selectedCategory, setSelectedCategory, categories }: FilterPanelProps) {
   return (
-    <div className="h-full flex flex-col border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-      <div className="p-6 flex-1 flex flex-col">
-        <div className="flex items-center justify-between mb-3">
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-            {category}
+    <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-5">
+      <div className="font-medium text-foreground mb-3 text-sm">Categories</div>
+      <ul className="space-y-2">
+        {categories.map((cat) => (
+          <li key={cat}>
+            <button
+              className={cn(
+                "w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors",
+                selectedCategory === cat
+                  ? "bg-primary text-primary-foreground shadow"
+                  : "hover:bg-accent/60 text-muted-foreground"
+              )}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Enhanced Tool Card
+function ToolCardEnhanced({ title, description, href, category, featured, icon }: ToolMeta) {
+  return (
+    <motion.div whileHover={{ y: -4 }} className="group relative h-full flex flex-col rounded-2xl border border-border/60 bg-card/60 backdrop-blur-md overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-[radial-gradient(circle_at_20%_15%,rgba(99,102,241,0.25),transparent_60%)]" />
+      <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity bg-[linear-gradient(120deg,rgba(255,255,255,0.12),rgba(255,255,255,0))]" />
+      <div className="p-6 flex-1 flex flex-col relative">
+        <div className="flex items-start justify-between mb-4">
+          <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-[11px] font-medium tracking-wide">
+            {icon && <span className="text-sm leading-none">{icon}</span>} {category}
           </span>
           {featured && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Featured
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 px-2 py-0.5 text-[11px] font-medium">
+              <Star className="h-3.5 w-3.5" />
+              New
             </span>
           )}
         </div>
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-muted-foreground text-sm mb-4 flex-1">
-          {description.length > 100 ? `${description.substring(0, 100)}...` : description}
+        <h3 className="text-base sm:text-lg font-semibold leading-snug mb-2 pr-4 line-clamp-2">{title}</h3>
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1 mb-4">
+          {description}
         </p>
-        <Link
-          href={href}
-          className="inline-flex items-center text-sm font-medium text-primary hover:underline mt-auto"
-        >
-          Try it now
-          <svg
-            className="ml-1 w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-        </Link>
+        <div className="mt-auto flex justify-end">
+          <Link href={href} className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline">
+            Open <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-40" />
+    </motion.div>
+  )
 }
 
 export default function ToolsPage() {
@@ -62,10 +84,11 @@ export default function ToolsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [sort, setSort] = useState<SortState>('title-asc');
 
-  // Filter tools based on search query and selected category
+  // Filter and sort tools based on search query, selected category, and sort state
   const filteredTools = useMemo(() => {
-    return TOOLS.filter((tool) => {
+    const filtered = TOOLS.filter((tool) => {
       const matchesSearch = 
         tool.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -78,7 +101,15 @@ export default function ToolsPage() {
       
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, selectedCategory]);
+
+    return filtered.sort((a, b) => {
+      if (sort === 'title-asc') {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+  }, [searchQuery, selectedCategory, sort]);
 
   // Group tools by category for the list view
   const toolsByCategory = useMemo(() => {
@@ -95,157 +126,147 @@ export default function ToolsPage() {
   }, [filteredTools]);
 
   return (
-    <div className="py-8 sm:py-12">
-      <div className="container px-4 sm:px-6">
-        {/* Hero Section */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 sm:mb-4">Tools & Resources</h1>
-          <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover our collection of free online tools to make your work easier and more efficient.
-          </p>
-        </div>
-
-        {/* Search and Filter Bar */}
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mb-4">
-            <div className="relative flex-1">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-muted-foreground" />
+    <div className="relative py-16 sm:py-20 md:py-24">
+      <SectionShell className="max-w-7xl">
+        <SectionHeader
+          eyebrow="Toolkit"
+            title="All-in-one utility workspace"
+            description="Search, filter and launch focused, privacy-first tools. Lightweight by design."
+        />
+        <div className="relative mb-10">
+          <div className="flex flex-col xl:flex-row gap-8">
+            {/* Sidebar Filters (desktop) */}
+            <aside className="xl:w-60 xl:shrink-0">
+              <div className="hidden xl:block sticky top-28 space-y-8">
+                <FilterPanel
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  categories={categories}
+                />
+                <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-5 text-xs leading-relaxed text-muted-foreground">
+                  <p className="font-medium text-foreground mb-2 text-sm">Tips</p>
+                  <ul className="list-disc pl-4 space-y-1">
+                    <li>Use keywords like “pdf” or “color”.</li>
+                    <li>Filter by category to narrow.</li>
+                    <li>Starred = recently enhanced.</li>
+                  </ul>
+                </div>
               </div>
-              <input
-                type="text"
-                placeholder="Search tools..."
-                className="block w-full pl-10 pr-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={cn(
-                  'p-2 rounded-md border',
-                  viewMode === 'grid' ? 'bg-primary/10 text-primary' : 'hover:bg-accent'
-                )}
-                aria-label="Grid view"
-              >
-                <Grid2X2 className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={cn(
-                  'p-2 rounded-md border',
-                  viewMode === 'list' ? 'bg-primary/10 text-primary' : 'hover:bg-accent'
-                )}
-                aria-label="List view"
-              >
-                <List className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setIsFilterOpen(!isFilterOpen)}
-                className="md:hidden p-2 rounded-md border hover:bg-accent"
-                aria-label="Filter"
-              >
-                <Filter className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Category Filters */}
-          <div className={cn(
-            'flex flex-wrap gap-2 mb-8 sm:mb-10 overflow-x-auto py-2',
-            isFilterOpen ? 'block' : 'hidden md:flex'
-          )}>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={cn(
-                  'px-3 py-1 text-sm rounded-full border whitespace-nowrap',
-                  selectedCategory === category
-                    ? 'bg-primary text-primary-foreground border-primary'
-                    : 'hover:bg-accent/50 border-input'
-                )}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
-  {/* Results Count */}
-  <div className="mb-8">
-          <p className="text-sm text-muted-foreground">
-            {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'} found
-            {selectedCategory !== 'All' ? ` in ${selectedCategory}` : ''}
-            {searchQuery ? ` for "${searchQuery}"` : ''}
-          </p>
-        </div>
-
-        {/* Tools Grid/List View */}
-        {viewMode === 'grid' ? (
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredTools.map((tool, index) => (
-              <motion.div
-                key={tool.slug}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.03 }}
-              >
-                <ToolCard {...tool} />
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {Object.entries(toolsByCategory).map(([category, tools]) => (
-              <div key={category}>
-                <h2 className="text-xl font-semibold mb-4">{category}</h2>
-                <div className="space-y-4">
-                  {tools.map((tool) => (
+            </aside>
+            <div className="flex-1 min-w-0">
+              {/* Search / controls */}
+              <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
+                <div className="relative flex-1">
+                  <Search className="h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search tools (e.g. pdf, color, finance)..."
+                    className="w-full rounded-xl border bg-background/80 backdrop-blur pl-10 pr-4 py-2.5 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+                    value={searchQuery}
+                    onChange={(e)=>setSearchQuery(e.target.value)}
+                  />
+                  <AnimatePresence>
+                  {searchQuery && (
+                    <motion.button
+                      initial={{opacity:0, scale:0.85}}
+                      animate={{opacity:1, scale:1}}
+                      exit={{opacity:0, scale:0.85}}
+                      onClick={()=>setSearchQuery('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] px-2 py-1 rounded-md bg-muted hover:bg-muted/80 text-muted-foreground/90"
+                    >Clear</motion.button>
+                  )}
+                  </AnimatePresence>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={cn('p-2 rounded-lg border text-xs font-medium flex items-center gap-1', viewMode==='grid' ? 'bg-primary text-primary-foreground border-primary shadow' : 'hover:bg-accent/60')}
+                  ><Grid2X2 className="h-4 w-4" /> Grid</button>
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={cn('p-2 rounded-lg border text-xs font-medium flex items-center gap-1', viewMode==='list' ? 'bg-primary text-primary-foreground border-primary shadow' : 'hover:bg-accent/60')}
+                  ><List className="h-4 w-4" /> List</button>
+                  <button
+                    onClick={()=>setIsFilterOpen(o=>!o)}
+                    className="xl:hidden p-2 rounded-lg border text-xs font-medium flex items-center gap-1 hover:bg-accent/60"
+                  ><Filter className="h-4 w-4" /> Filters</button>
+                  <button
+                    onClick={()=>setSort(s=> s==='title-asc' ? 'title-desc' : 'title-asc')}
+                    className="p-2 rounded-lg border text-xs font-medium flex items-center gap-1 hover:bg-accent/60"
+                  ><SortDesc className="h-4 w-4" /> Sort</button>
+                </div>
+              </div>
+              {/* Mobile filter panel */}
+              {isFilterOpen && (
+                <div className="xl:hidden mb-8">
+                  <FilterPanel selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} categories={categories} />
+                </div>
+              )}
+              <div className="mb-6 text-xs text-muted-foreground font-medium tracking-wide">
+                {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}
+                {selectedCategory !== 'All' && <span> in <span className="text-foreground/90">{selectedCategory}</span></span>}
+                {searchQuery && <span> matching <span className="text-foreground/90">{searchQuery}</span></span>}
+              </div>
+              {/* Results */}
+              {viewMode === 'grid' ? (
+                <div className="grid gap-5 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                  {filteredTools.map((tool, i) => (
                     <motion.div
                       key={tool.slug}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="p-4 border rounded-lg hover:bg-accent/30 transition-colors"
+                      initial={{opacity:0,y:20}}
+                      animate={{opacity:1,y:0}}
+                      transition={{delay: i * 0.025}}
                     >
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div>
-                          <h3 className="font-medium">{tool.title}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {tool.description}
-                          </p>
-                        </div>
-                        <Link
-                          href={tool.href}
-                          className="text-sm font-medium text-primary hover:underline whitespace-nowrap"
-                        >
-                          Open tool →
-                        </Link>
-                      </div>
+                      <ToolCardEnhanced {...tool} />
                     </motion.div>
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Empty State */}
-        {filteredTools.length === 0 && (
-          <div className="text-center py-12">
-            <div className="mx-auto w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4">
-              <Search className="h-8 w-8 text-muted-foreground" />
+              ) : (
+                <div className="space-y-10">
+                  {Object.entries(toolsByCategory).map(([category, tools]) => (
+                    <div key={category}>
+                      <h2 className="text-sm font-semibold tracking-wide mb-4 uppercase text-muted-foreground/80 flex items-center gap-2"><Layers3 className="h-4 w-4" /> {category}</h2>
+                      <div className="space-y-3">
+                        {tools.map(tool => (
+                          <motion.div
+                            key={tool.slug}
+                            initial={{opacity:0,x:-12}}
+                            animate={{opacity:1,x:0}}
+                            transition={{duration:.25}}
+                            className="group rounded-xl border border-border/60 bg-card/40 backdrop-blur p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:bg-card/70 transition-colors"
+                          >
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <h3 className="font-medium text-sm sm:text-base tracking-tight line-clamp-1">{tool.title}</h3>
+                                {tool.featured && <Star className="h-3.5 w-3.5 text-amber-500" />}
+                              </div>
+                              <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
+                            </div>
+                            <Link href={tool.href} className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline shrink-0">
+                              Open <ArrowUpRight className="h-3.5 w-3.5" />
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {filteredTools.length === 0 && (
+                <div className="text-center py-16">
+                  <div className="mx-auto w-16 h-16 rounded-full bg-accent/30 flex items-center justify-center mb-5">
+                    <Search className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">No tools found</h3>
+                  <p className="text-sm text-muted-foreground max-w-sm mx-auto">Try adjusting filters or clearing your search keywords.</p>
+                </div>
+              )}
             </div>
-            <h3 className="text-lg font-medium mb-1">No tools found</h3>
-            <p className="text-muted-foreground text-sm">
-              Try adjusting your search or filter to find what you're looking for.
-            </p>
           </div>
-        )}
-      </div>
+        </div>
+      </SectionShell>
     </div>
   );
 }
+
+type SortState = 'title-asc' | 'title-desc'

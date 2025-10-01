@@ -41,6 +41,17 @@ export function Navbar() {
   const sidebarRef = useRef<HTMLDivElement | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [desktopDropdown, setDesktopDropdown] = useState<string | null>(null)
+  const [recentTools, setRecentTools] = useState<string[]>([])
+
+  // Load recent tools from localStorage
+  useEffect(()=>{
+    function load(){
+      try { const raw = localStorage.getItem('recentTools'); if(raw){ setRecentTools(JSON.parse(raw)); } } catch {}
+    }
+    load();
+    window.addEventListener('toolopia:recentToolsUpdated', load);
+    return ()=> window.removeEventListener('toolopia:recentToolsUpdated', load);
+  },[])
   const dropdownItemRefs = useRef<Record<string, Array<HTMLAnchorElement | null>>>({})
 
   // Close on ESC
@@ -132,35 +143,97 @@ export function Navbar() {
                 {link.dropdown && (
                   <div
                     className={cn(
-                      "absolute left-0 mt-2 w-[22rem] rounded-xl border bg-popover/98 backdrop-blur-lg shadow-xl z-50 opacity-0 translate-y-1 pointer-events-none",
+                      "absolute left-0 mt-2 w-[26rem] rounded-2xl border border-border/70 bg-gradient-to-br from-background/95 via-background/98 to-background/95 dark:from-slate-900/95 dark:via-slate-900/98 dark:to-slate-900/95 backdrop-blur-xl shadow-2xl ring-1 ring-black/5 z-50 opacity-0 translate-y-2 pointer-events-none",
                       "group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200",
                       desktopDropdown===link.href && "opacity-100 translate-y-0 pointer-events-auto"
                     )}
                     onKeyDown={(e)=>{ if(e.key==='Escape'){ setDesktopDropdown(null) } }}
                   >
-                    <div className="p-3">
-                      <h3 className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-2 pb-2">Featured Tools</h3>
-                      <div className="grid grid-cols-1 gap-1">
-                        {link.dropdown.map((item, idx) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="flex items-start gap-3 rounded-lg px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
-                            ref={(el)=>{
-                              const arr = dropdownItemRefs.current[link.href] || []
-                              arr[idx] = el
-                              dropdownItemRefs.current[link.href] = arr
-                            }}
-                          >
-                            <div className="flex-1 min-w-0">
-                              <div className="font-medium truncate">{item.title}</div>
-                              <div className="text-xs text-muted-foreground line-clamp-1">{item.description}</div>
-                            </div>
-                            {item.category && (
-                              <span className="shrink-0 text-[10px] text-muted-foreground">{item.category}</span>
-                            )}
-                          </Link>
-                        ))}
+                    <div className="p-4 space-y-5">
+                      {/* Featured Section */}
+                      <div>
+                        <div className="flex items-center justify-between px-1 pb-2">
+                          <h3 className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">Featured Tools</h3>
+                          <span className="text-[10px] text-primary/70 font-medium">{link.dropdown.length}</span>
+                        </div>
+                        <div className="divide-y divide-border/60 rounded-lg overflow-hidden border border-border/50 bg-card/40 dark:bg-slate-800/30">
+                          {link.dropdown.map((item, idx) => {
+                            const categoryEmojiMap: Record<string,string> = { Design:'🎨', Finance:'💹', PDF:'📄', Image:'🖼️', Security:'🔒', Productivity:'⚡', Utility:'🛠️' };
+                            const emoji = categoryEmojiMap[item.category as keyof typeof categoryEmojiMap] || '🧰';
+                            const addedDate = TOOLS.find(t=>t.href===item.href)?.publishedDate;
+                            const isNew = addedDate ? (Date.now() - new Date(addedDate).getTime()) < 1000*60*60*24*30 : false;
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                className="group/item flex items-start gap-3 px-4 py-3 text-sm hover:bg-primary/5 focus:bg-primary/10 focus:outline-none transition-colors"
+                                ref={(el)=>{
+                                  const arr = dropdownItemRefs.current[link.href] || []
+                                  arr[idx] = el
+                                  dropdownItemRefs.current[link.href] = arr
+                                }}
+                                onKeyDown={(e)=>{
+                                  const arr = dropdownItemRefs.current[link.href] || []
+                                  const currentIndex = idx
+                                  if(e.key === 'ArrowDown') {
+                                    e.preventDefault()
+                                    const next = arr[currentIndex + 1] || arr[0]
+                                    next?.focus()
+                                  } else if(e.key === 'ArrowUp') {
+                                    e.preventDefault()
+                                    const prev = arr[currentIndex - 1] || arr[arr.length - 1]
+                                    prev?.focus()
+                                  } else if(e.key === 'Home') {
+                                    e.preventDefault(); arr[0]?.focus()
+                                  } else if(e.key === 'End') {
+                                    e.preventDefault(); arr[arr.length-1]?.focus()
+                                  } else if(e.key === 'Escape') {
+                                    setDesktopDropdown(null)
+                                    // focus trigger button
+                                    const trigger = document.querySelector(`a[href='${link.href}']`) as HTMLElement | null
+                                    trigger?.focus()
+                                  }
+                                }}
+                              >
+                                <div className="mt-0.5 w-8 h-8 flex items-center justify-center rounded-full bg-muted/70 dark:bg-slate-700/60 text-base">
+                                  <span className="leading-none" aria-hidden="true">{emoji}</span>
+                                </div>
+                                <div className="flex-1 min-w-0 pr-2">
+                                  <div className="flex items-center gap-2">
+                                    <div className="font-medium truncate group-hover/item:text-foreground">{item.title}</div>
+                                    {isNew && <span className="text-[9px] uppercase tracking-wide font-semibold text-primary bg-primary/10 rounded px-1 py-0.5">New</span>}
+                                  </div>
+                                  <div className="text-[11px] text-muted-foreground line-clamp-1">{item.description}</div>
+                                </div>
+                                {item.category && (
+                                  <span className="shrink-0 text-[10px] text-muted-foreground/80 bg-muted/40 dark:bg-slate-700/40 rounded px-1.5 py-0.5">{item.category}</span>
+                                )}
+                              </Link>
+                            )
+                          })}
+                        </div>
+                      </div>
+                      {/* Recently Used */}
+                      {recentTools.length > 0 && (
+                        <div>
+                          <div className="flex items-center justify-between px-1 pb-2">
+                            <h3 className="text-[11px] font-semibold text-muted-foreground uppercase tracking-[0.15em]">Recently Used</h3>
+                            <button onClick={()=>{localStorage.removeItem('recentTools'); setRecentTools([])}} className="text-[10px] text-muted-foreground hover:text-foreground">Clear</button>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {recentTools.slice(0,6).map(slug => {
+                              const t = TOOLS.find(tt=>tt.slug===slug); if(!t) return null;
+                              return (
+                                <Link key={slug} href={t.href} className="px-2.5 py-1 rounded-full bg-muted/70 dark:bg-slate-700/60 text-xs font-medium hover:bg-primary/10 hover:text-foreground transition">
+                                  {t.title}
+                                </Link>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      )}
+                      <div className="pt-1 flex justify-end">
+                        <Link href="/tools" className="text-[11px] font-medium text-primary hover:underline">View all tools →</Link>
                       </div>
                     </div>
                   </div>
@@ -200,7 +273,7 @@ export function Navbar() {
                 </button>
               </div>
             </div>
-            <nav className="flex-1 overflow-y-auto px-4 py-5">
+            <nav className="flex-1 overflow-y-auto px-4 py-5 relative">
               <ul className="space-y-4">
                 {navLinks.map(link => {
                   const isActive = pathname === link.href
@@ -208,7 +281,7 @@ export function Navbar() {
                   const hasDropdown = !!link.dropdown
                   const IconM = (link as any).icon as any
                   return (
-                    <li key={link.href} className="group">
+                    <li key={link.href} className="group relative">
                       <div className="flex items-center gap-3">
                         <Link
                           href={link.href}
@@ -233,23 +306,61 @@ export function Navbar() {
                           </button>
                         )}
                       </div>
-                      {hasDropdown && (
-                        <div className={cn('transition-all overflow-hidden', isOpen ? 'mt-3 space-y-3' : 'max-h-0 opacity-0 pointer-events-none')}>
-                          <div className="grid sm:grid-cols-2 gap-3">
-                            {link.dropdown!.map(item => (
-                              <Link
-                                key={item.href}
-                                href={item.href}
-                                onClick={() => { setOpen(false); setMobileDropdown(null) }}
-                                className="block p-3 rounded-xl border bg-card/60 hover:bg-card shadow-sm hover:shadow transition-colors"
-                              >
-                                <div className="font-medium text-sm mb-1 flex items-center justify-between">
-                                  <span>{item.title}</span>
-                                  <span className="text-xs text-muted-foreground">{item.category || ''}</span>
+                      {hasDropdown && link.href === '/tools' && isOpen && (
+                        <div className="absolute left-0 right-0 mt-2 z-40">
+                          <div className="rounded-2xl border border-border/70 bg-gradient-to-br from-background/95 via-background/98 to-background/95 dark:from-slate-900/95 dark:via-slate-900/98 dark:to-slate-900/95 shadow-2xl ring-1 ring-black/10 backdrop-blur-xl p-4 space-y-5 animate-in fade-in-50 zoom-in-95">
+                            <div>
+                              <div className="flex items-center justify-between px-1 pb-2">
+                                <h4 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Featured Tools</h4>
+                                <span className="text-[10px] text-primary/70 font-medium">{link.dropdown!.length}</span>
+                              </div>
+                              <div className="divide-y divide-border/60 rounded-lg overflow-hidden border border-border/50 bg-card/40 dark:bg-slate-800/30 max-h-[50vh] overflow-y-auto">
+                                {link.dropdown!.map((item, idx) => {
+                                  const categoryEmojiMap: Record<string,string> = { Design:'🎨', Finance:'💹', PDF:'📄', Image:'🖼️', Security:'🔒', Productivity:'⚡', Utility:'🛠️' };
+                                  const emoji = categoryEmojiMap[item.category as keyof typeof categoryEmojiMap] || '🧰';
+                                  const addedDate = TOOLS.find(t=>t.href===item.href)?.publishedDate;
+                                  const isNew = addedDate ? (Date.now() - new Date(addedDate).getTime()) < 1000*60*60*24*30 : false;
+                                  return (
+                                    <Link
+                                      key={item.href}
+                                      href={item.href}
+                                      onClick={() => { setOpen(false); setMobileDropdown(null) }}
+                                      className="group/item flex items-start gap-3 px-4 py-3 text-sm hover:bg-primary/5 focus:bg-primary/10 focus:outline-none transition-colors"
+                                    >
+                                      <div className="mt-0.5 w-8 h-8 flex items-center justify-center rounded-full bg-muted/70 dark:bg-slate-700/60 text-base">
+                                        <span className="leading-none" aria-hidden="true">{emoji}</span>
+                                      </div>
+                                      <div className="flex-1 min-w-0 pr-2">
+                                        <div className="flex items-center gap-2">
+                                          <div className="font-medium truncate group-hover/item:text-foreground">{item.title}</div>
+                                          { isNew && <span className="text-[9px] uppercase tracking-wide font-semibold text-primary bg-primary/10 rounded px-1 py-0.5">New</span> }
+                                        </div>
+                                        <div className="text-[11px] text-muted-foreground line-clamp-1">{item.description}</div>
+                                      </div>
+                                      {item.category && (
+                                        <span className="shrink-0 text-[10px] text-muted-foreground/80 bg-muted/40 dark:bg-slate-700/40 rounded px-1.5 py-0.5">{item.category}</span>
+                                      )}
+                                    </Link>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                            {recentTools.length > 0 && (
+                              <div>
+                                <div className="flex items-center justify-between px-1 pb-2">
+                                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">Recently Used</h4>
+                                  <button onClick={()=>{localStorage.removeItem('recentTools'); setRecentTools([])}} className="text-[10px] text-muted-foreground hover:text-foreground">Clear</button>
                                 </div>
-                                <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{item.description}</p>
-                              </Link>
-                            ))}
+                                <div className="flex flex-wrap gap-2">
+                                  {recentTools.slice(0,8).map(slug => { const t = TOOLS.find(tt=>tt.slug===slug); if(!t) return null; return (
+                                    <Link key={slug} href={t.href} onClick={()=>{ setOpen(false); setMobileDropdown(null) }} className="px-2.5 py-1 rounded-full bg-muted/70 dark:bg-slate-700/60 text-xs font-medium hover:bg-primary/10 hover:text-foreground transition">{t.title}</Link>
+                                  ) })}
+                                </div>
+                              </div>
+                            )}
+                            <div className="pt-1 flex justify-end">
+                              <Link href="/tools" onClick={()=>{ setOpen(false); setMobileDropdown(null) }} className="text-[11px] font-medium text-primary hover:underline">View all tools →</Link>
+                            </div>
                           </div>
                         </div>
                       )}
