@@ -1,0 +1,9 @@
+{
+  "title": "Profit Margin & Break-Even Analyzer",
+  "subtitle": "Understand unit economics fast: margin, break-even units, and revenue visualized.",
+  "paragraphs": [
+    "This tool lets you explore how pricing, variable cost, and fixed cost structure interact. Adjust inputs to immediately see break-even units and revenue shift.",
+    "Use it early in product planning to validate whether your assumed contribution margin can realistically cover fixed overhead within your target sales volume.",
+    "Tip: A very high break-even unit count relative to your realistic monthly capacity is an early signal to revisit pricing, lower variable costs, or reduce fixed expenses." 
+  ]
+}

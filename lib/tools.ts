@@ -179,4 +179,32 @@ export const TOOLS: ToolMeta[] = [
       useCases: ['Startup valuation', 'Preliminary appraisal', 'Investor pitch prep'],
       icon: '💼'
     }
+    ,{
+      title: 'Profit Margin & Break-Even Analyzer',
+      description: 'Compute profit margin, break-even units and revenue with a visual cost & revenue chart.',
+      slug: 'profit-analyzer',
+      href: '/tools/profit-analyzer',
+      category: 'Finance',
+      featured: true,
+      toolComponent: 'ProfitAnalyzerPage',
+      publishedDate: '2025-10-02',
+      keywords: ['profit margin', 'break-even', 'finance analysis', 'cost structure'],
+      difficulty: 'beginner',
+      useCases: ['Pricing validation', 'Startup financials', 'Unit economics'],
+      icon: '📈'
+    }
+    ,{
+      title: 'Startup Runway Calculator',
+      description: 'Model cash runway with revenue growth and future funding injection to anticipate depletion risk.',
+      slug: 'startup-runway-calculator',
+      href: '/tools/startup-runway-calculator',
+      category: 'Finance',
+      featured: true,
+      toolComponent: 'StartupRunwayCalculatorPage',
+      publishedDate: '2025-10-02',
+      keywords: ['runway', 'startup', 'cash flow', 'finance'],
+      difficulty: 'beginner',
+      useCases: ['Fundraising planning', 'Burn analysis', 'Scenario modeling'],
+      icon: '🚀'
+    }
 ]

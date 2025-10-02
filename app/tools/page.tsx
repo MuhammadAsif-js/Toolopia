@@ -103,6 +103,9 @@ export default function ToolsPage() {
     });
 
     return filtered.sort((a, b) => {
+      // Featured weighting first
+      if (a.featured && !b.featured) return -1;
+      if (b.featured && !a.featured) return 1;
       if (sort === 'title-asc') {
         return a.title.localeCompare(b.title);
       } else {
