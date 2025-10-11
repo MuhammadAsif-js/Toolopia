@@ -9,16 +9,11 @@ export async function GET() {
     '/contact',
     '/privacy',
     '/terms',
-    '/tools/color-tool',
     '/tools/currency-converter',
-    '/tools/fake-detector',
-    '/tools/image-compressor',
-    '/tools/pdf-merger',
-    '/tools/pdf-to-excel',
-    '/tools/productivitytool',
-    '/tools/screen-checker',
-    '/tools/time-zone-converter',
-    '/tools/typintool',
+    '/tools/business-valuation-estimator',
+    '/tools/profit-analyzer',
+    '/tools/startup-runway-calculator',
+    '/tools/smart-profitability-dashboard',
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

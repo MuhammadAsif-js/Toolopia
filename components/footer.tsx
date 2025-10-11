@@ -4,9 +4,11 @@ import { motion } from 'framer-motion'
 
 const productLinks = [
   { href: '/tools', label: 'All Tools' },
-  { href: '/tools/image-compressor', label: 'Image Compressor' },
-  { href: '/tools/pdf-to-excel', label: 'PDF to Excel' },
-  { href: '/tools/color-tool', label: 'Color Tool' },
+  { href: '/tools/currency-converter', label: 'Currency Converter' },
+  { href: '/tools/business-valuation-estimator', label: 'Business Valuation' },
+  { href: '/tools/profit-analyzer', label: 'Profit Analyzer' },
+  { href: '/tools/startup-runway-calculator', label: 'Runway Calculator' },
+  { href: '/tools/smart-profitability-dashboard', label: 'Profitability Dashboard' },
 ]
 
 const companyLinks = [

@@ -1,2 +1,1 @@
-// Re-export all tool components from this directory
-export * from './color-tool';
+// Intentionally left blank: previously re-exported deprecated color-tool.

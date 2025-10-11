@@ -1,8 +1,0 @@
-{
-  "title": "Time Zone Converter",
-  "subtitle": "Quickly convert times between common cities — client-side and instant.",
-  "paragraphs": [
-    "Pick a time and convert it between popular time zones. All conversion happens locally in your browser using Intl APIs.",
-    "Reserved slots for ads are present but disabled by default; enable them only if you add valid ad code."
-  ]
-}

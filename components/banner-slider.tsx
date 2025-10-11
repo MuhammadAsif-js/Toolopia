@@ -12,7 +12,7 @@ interface Banner {
 }
 
 const banners: Banner[] = [
-  { id: 1, title: 'Image Compressor', desc: 'Shrink heavy assets before you ship or send.', cta: { href: '/tools/image-compressor', label: 'Compress Now' }, image: '/images/banner-1.svg' },
+  // Removed non-finance slide (Image Compressor)
   { id: 2, title: 'PDF to Excel', desc: 'Turn static tables into editable data instantly.', cta: { href: '/tools/pdf-to-excel', label: 'Convert PDF' }, image: '/images/banner-2.svg' },
   { id: 3, title: 'Currency & Valuation', desc: 'Finance utilities evolving with markets.', cta: { href: '/tools/business-valuation-estimator', label: 'Estimate Value' }, image: '/images/banner-3.svg' }
 ]

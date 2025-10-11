@@ -44,20 +44,21 @@ export function generateStaticParams() {
 }
 
 /*
-  Replace direct server imports of tool components with client-only dynamic imports.
-  Add other tool names used by your articles to this mapping.
+  Client-only dynamic imports for embedding tool demos inside articles.
+  Keys MUST match the `toolComponent` field in `lib/tools.ts`.
+  Values import lightweight tool components (not full pages) when available.
 */
 const ToolComponents: Record<string, React.ComponentType<any>> = {
-	PdfMerger: dynamic(() => import('../../tools/PdfMerger.js'), { ssr: false }),
-	TypingTest: dynamic(() => import('../../tools/TypingTest.js'), { ssr: false }),
-	FakeDetector: dynamic(() => import('../../tools/FakeDetector.js'), { ssr: false }),
-	CurrencyConverter: dynamic(() => import('../../tools/CurrencyConverter.js'), { ssr: false }),
-	PdfToExcel: dynamic(() => import('../../tools/PdfToExcel.js'), { ssr: false }),
-	TimeZoneConverter: dynamic(() => import('../../tools/TimeZoneConverter.js'), { ssr: false }),
-	ProductivityTool: dynamic(() => import('../../tools/ProductivityTool.js'), { ssr: false }),
-	ScreenChecker: dynamic(() => import('../../tools/ScreenChecker.js'), { ssr: false }),
-	ImageCompressor: dynamic(() => import('../../tools/ImageCompressor.js'), { ssr: false }),
-	ColorTool: dynamic(() => import('../../tools/ColorTool.js'), { ssr: false }),
+  // Currency Converter page component
+  CurrencyConverter: dynamic(() => import('../../tools/currency-converter/page'), { ssr: false }),
+  // Business Valuation Estimator page component
+  BusinessValuationEstimator: dynamic(() => import('../../tools/business-valuation-estimator/page'), { ssr: false }),
+  // Profit Analyzer: embed the tool component to avoid duplicating headers
+  ProfitAnalyzerPage: dynamic(() => import('../../tools/profit-analyzer/tool'), { ssr: false }),
+  // Startup Runway: embed the calculator component
+  StartupRunwayCalculatorPage: dynamic(() => import('../../tools/startup-runway-calculator/RunwayCalculator'), { ssr: false }),
+  // Smart Profitability Dashboard component
+  SmartProfitabilityDashboardPage: dynamic(() => import('../../tools/smart-profitability-dashboard/SmartProfitabilityDashboard'), { ssr: false }),
 };
 
 export default function ArticlePage({ params }: ArticlePageProps) {

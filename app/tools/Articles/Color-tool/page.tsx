@@ -46,217 +46,24 @@ const content = {
       ],
     },
     {
-      id: "how-to-structure",
-      heading: "How to Structure the Article",
-      body:
-        "Open with a clear promise, show the tool’s value, then guide readers through examples, edge cases, and FAQs. Anchor every functional component to a concrete use case.",
-      bullets: [
-        "Hero with benefit-oriented headline & CTA",
-        "Sticky Table of Contents + reading progress",
-        "Inline demos: calculators, converters, or preview widgets",
-        "Code/technical breakdowns for developer audiences",
-        "Schema markup + Open Graph for rich sharing",
-      ],
-    },
-    {
-      id: "embed-the-tool",
-      heading: "Embed the Tool Inside the Article",
-      body:
-        "Import your tool’s component and mount it right next to the explanation. Keep it fast, accessible, and keyboard-friendly.",
-    },
-    {
-      id: "seo-checklist",
-      heading: "SEO Checklist",
-      bullets: [
-        "Compelling title tag (50–60 chars) & meta description (120–155)",
-        "Semantic headings (H1→H2→H3) with target keywords",
-        "Descriptive alt text for images & diagrams",
-        "Internal links to related tutorials and categories",
-        "Article schema (JSON-LD), OG & Twitter cards",
-        "Fast LCP/CLS: optimize images, avoid layout shifts",
-      ],
-    },
-    {
-      id: "faqs",
-      heading: "FAQs",
-      body:
-        "Answer intent-matched questions users actually search for. Mirror their phrasing. Keep answers concise, then link deeper.",
-    },
-  ],
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline: content.title,
-  description: content.description,
-  author: {
-    "@type": "Person",
-    name: "Editorial Team",
-  },
-  datePublished: "2025-09-03",
-  dateModified: "2025-09-03",
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": "https://example.com/insights/seo-embedded-tools",
-  },
-  image: [
-    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
-  ],
-};
-
 function ProgressBar() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, mass: 0.2 });
-  return (
-    <motion.div
-      aria-hidden
-      style={{ scaleX }}
-      className="fixed left-0 top-0 z-50 h-1 w-full origin-left bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500"
-    />
-  );
-}
-
-function TOC({ sections }: { sections: { id: string; heading: string }[] }) {
-  return (
-    <nav className="sticky top-24 hidden h-max w-72 shrink-0 lg:block">
-      <Card className="border-muted-foreground/10">
-        <CardContent className="p-4">
-          <p className="mb-3 text-sm font-semibold tracking-wide text-muted-foreground">On this page</p>
-          <ul className="space-y-2">
-            {sections.map((s) => (
               <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
-                  className="group inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-                >
-                  <LinkIcon className="h-4 w-4 opacity-60 group-hover:opacity-100" />
-                  <span>{s.heading}</span>
-                </a>
               </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-    </nav>
-  );
-}
 
-function Share() {
-  const [copied, setCopied] = useState(false);
-  const url = typeof window !== "undefined" ? window.location.href : "https://example.com/insights/seo-embedded-tools";
-  return (
-    <div className="flex items-center gap-2">
-      <Button
         variant="secondary"
-        className="rounded-2xl"
-        onClick={() => {
-          navigator.clipboard.writeText(url);
-          setCopied(true);
           setTimeout(() => setCopied(false), 1500);
-        }}
-      >
-        {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}Copy link
       </Button>
-      <Button asChild className="rounded-2xl">
         <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(content.title)}&url=${encodeURIComponent(url)}`} target="_blank" rel="noreferrer">
-          <Share2 className="mr-2 h-4 w-4" />Share
-        </a>
-      </Button>
-    </div>
-  );
-}
-
-function Hero() {
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollY } = useScroll({ target: targetRef });
-  const y = useTransform(scrollY, [0, 200], [0, -40]);
-
-  return (
-    <section ref={targetRef} className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-b from-background to-muted p-8 pt-16 md:p-12">
-      <motion.div style={{ y }} className="mx-auto max-w-3xl text-center">
         <Badge className="mb-4 inline-flex items-center gap-1 rounded-2xl px-3 py-1 text-xs"><Sparkles className="h-3 w-3"/> {content.hero.eyebrow}</Badge>
-        <h1 className="mb-3 text-3xl font-bold tracking-tight md:text-5xl">{content.hero.headline}</h1>
-        <p className="mx-auto mb-6 max-w-2xl text-base text-muted-foreground md:text-lg">{content.hero.sub}</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <Button className="rounded-2xl" asChild>
             <a href="#embed-the-tool">
-              Start Embedding <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-          </Button>
-          <Button variant="outline" className="rounded-2xl" asChild>
-            <a href="#seo-checklist">See SEO Checklist</a>
-          </Button>
-        </div>
-      </motion.div>
-
-      <motion.div
         aria-hidden
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gradient-to-tr from-indigo-500/20 to-sky-400/20 blur-3xl"
-      />
-    </section>
-  );
-}
 
-function Section({ id, heading, children }: { id: string; heading: string; children?: React.ReactNode }) {
-  return (
-    <section id={id} className="scroll-mt-24">
-      <motion.h2
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.4 }}
-        className="mb-3 text-2xl font-semibold md:text-3xl"
-      >
-        {heading}
-      </motion.h2>
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.4, delay: 0.05 }}
-        className="prose prose-neutral max-w-none dark:prose-invert"
-      >
-        {children}
-      </motion.div>
-    </section>
-  );
-}
 
-function InlineDemo() {
-  // Placeholder for your real tool component; swap with your import
-  const [input, setInput] = useState("10 USD to PKR");
-  const [output, setOutput] = useState<string | null>(null);
-  const convert = () => {
-    // Fake conversion for demo purposes
-    const match = input.match(/(\d+(?:\.\d+)?)\s*USD\s*to\s*PKR/i);
-    if (match) {
       const amount = Number(match[1]);
-      const rate = 278; // replace with real rate
-      setOutput(`${amount} USD ≈ ${Math.round(amount * rate)} PKR`);
-    } else {
-      setOutput("Try: 10 USD to PKR");
-    }
-  };
-  useEffect(() => {
-    setOutput(null);
-  }, [input]);
-
   return (
-    <Card className="border-muted-foreground/10">
-      <CardContent className="p-4">
         <div className="flex flex-col gap-3 md:flex-row md:items-center">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type a query like: 10 USD to PKR"
-            className="w-full rounded-2xl border bg-background px-3 py-2 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
-          />
-          <Button onClick={convert} className="rounded-2xl">Convert</Button>
-        </div>
+  // This file has been cleared of content as per the patch request.
         {output && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 text-sm">
             <Badge variant="secondary" className="mr-2 rounded-2xl"><Timer className="mr-1 h-3 w-3"/>Result</Badge>

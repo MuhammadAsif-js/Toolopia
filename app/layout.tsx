@@ -10,16 +10,16 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Toolopia - Free Online Tools',
+    default: 'Toolopia - Financial Tools & Calculators',
     template: '%s | Toolopia'
   },
-  description: 'All-in-one toolbox: image compression, PDF conversion, and more. Fast, free, and privacy-friendly.',
+  description: 'Premium financial calculators and tools for valuation, profit analysis, currency conversion, and cash flow planning.',
   keywords: [
-    'online tools', 'image compressor', 'pdf to excel', 'file converter', 'free tools'
+    'financial tools', 'business valuation', 'profit margin', 'runway calculator', 'currency converter'
   ],
   openGraph: {
     title: 'Toolopia',
-    description: 'Compress images, convert PDFs, and more with a fast, modern UI.',
+    description: 'Premium financial calculators and tools for smarter business decisions.',
     url: 'https://example.com',
     siteName: 'Toolopia',
     images: [

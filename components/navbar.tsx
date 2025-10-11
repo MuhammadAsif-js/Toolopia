@@ -10,19 +10,12 @@ import { TOOLS } from '@/lib/tools';
 
 const navLinks = [
   { href: '/', label: 'Home', icon: Home },
-  { 
-    href: '/tools', 
+  {
+    href: '/tools',
     label: 'Tools',
     icon: Layers,
     dropdown: [
-      {
-        title: 'Color Picker & Converter',
-        description: 'Pick, convert and extract colors with our comprehensive color tool',
-        href: '/tools/color-tool',
-        category: 'Design',
-        icon: 'Palette'
-      },
-      ...TOOLS.filter(tool => tool.featured).map(tool => ({
+      ...TOOLS.filter(tool => tool.category === 'Finance').map(tool => ({
         title: tool.title,
         description: tool.description,
         href: tool.href,
