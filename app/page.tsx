@@ -1,6 +1,5 @@
 "use client"
 import { Hero } from '../components/hero'
-import { BannerSlider } from '../components/banner-slider'
 import { ToolCard } from '../components/tool-card'
 import { motion } from 'framer-motion'
 import { TOOLS } from '../lib/tools'
@@ -20,10 +19,7 @@ export default function HomePage() {
       <div className="relative">
         <div className="absolute inset-0 pointer-events-none [mask-image:linear-gradient(to_bottom,black,transparent_95%)] bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.15),transparent_65%)]" />
         <div className="container px-4 space-y-20 pb-24">
-          <SectionShell className="space-y-10" data-section="banners">
-            <SectionHeader eyebrow="Highlights" title="Evolving toolkit. Practical outcomes." description="A rotating look at utilities that remove friction from workflow bottlenecks." />
-            <BannerSlider />
-          </SectionShell>
+          {/* Banners section removed intentionally */}
           <SectionShell className="space-y-8" data-section="featured">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <div>
