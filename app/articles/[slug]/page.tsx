@@ -49,16 +49,11 @@ export function generateStaticParams() {
   Values import lightweight tool components (not full pages) when available.
 */
 const ToolComponents: Record<string, React.ComponentType<any>> = {
-  // Currency Converter page component
   CurrencyConverter: dynamic(() => import('../../tools/currency-converter/page'), { ssr: false }),
-  // Business Valuation Estimator page component
   BusinessValuationEstimator: dynamic(() => import('../../tools/business-valuation-estimator/page'), { ssr: false }),
-  // Profit Analyzer: embed the tool component to avoid duplicating headers
-  ProfitAnalyzerPage: dynamic(() => import('../../tools/profit-analyzer/tool'), { ssr: false }),
-  // Startup Runway: embed the calculator component
-  StartupRunwayCalculatorPage: dynamic(() => import('../../tools/startup-runway-calculator/RunwayCalculator'), { ssr: false }),
-  // Smart Profitability Dashboard component
-  SmartProfitabilityDashboardPage: dynamic(() => import('../../tools/smart-profitability-dashboard/SmartProfitabilityDashboard'), { ssr: false }),
+  ProfitAnalyzerPage: dynamic(() => import('../../tools/profit-analyzer/page'), { ssr: false }),
+  StartupRunwayCalculatorPage: dynamic(() => import('../../tools/startup-runway-calculator/page'), { ssr: false }),
+  SmartProfitabilityDashboardPage: dynamic(() => import('../../tools/smart-profitability-dashboard/page'), { ssr: false }),
 };
 
 export default function ArticlePage({ params }: ArticlePageProps) {
