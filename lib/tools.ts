@@ -99,4 +99,33 @@ export const TOOLS: ToolMeta[] = [
     useCases: ['Monthly review', 'Financial snapshot', 'Stakeholder updates'],
     icon: '💹'
   }
+  ,
+  {
+    title: 'US State Tax Calculator',
+    description: 'Estimate federal and state income taxes with sample brackets. Replace with official data for production.',
+    slug: 'us-state-tax-calculator',
+    href: '/tools/us-state-tax-calculator',
+    category: 'Finance',
+    featured: false,
+    toolComponent: 'USStateTaxCalculatorPage',
+    publishedDate: '2025-10-19',
+    keywords: ['tax', 'state tax', 'federal tax', 'income'],
+    difficulty: 'beginner',
+    icon: '🧾'
+  }
+  ,
+  {
+    title: 'FinSmart USA — Loans · Savings · Bank Compare',
+    description: 'Plan loans with amortization, simulate savings growth, and compare bank APYs/fees in one compact dashboard.',
+    slug: 'fin-smart-usa',
+    href: '/tools/fin-smart-usa',
+    category: 'Finance',
+    featured: true,
+    toolComponent: 'FinSmartUSAPage',
+    publishedDate: '2025-10-21',
+    keywords: ['loan calculator', 'savings', 'APY', 'bank comparison', 'amortization'],
+    difficulty: 'beginner',
+    useCases: ['Mortgage planning', 'Savings projection', 'Bank APY comparison'],
+    icon: '🏦'
+  }
 ]

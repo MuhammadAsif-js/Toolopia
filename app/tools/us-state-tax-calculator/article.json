@@ -1,0 +1,9 @@
+{
+  "title": "US State Tax Calculator",
+  "subtitle": "Estimate federal and state income tax (sample data).",
+  "paragraphs": [
+    "This tool provides a fast estimate of federal and state income tax using progressive bracket data. The included brackets are sample values — replace with official, up-to-date tax tables before using for planning or reporting.",
+    "Choose filing status (single / married) and a state to compare take-home pay across jurisdictions.",
+    "Tip: For production accuracy, update the TAX_DATA object with current-year federal and state brackets and consider itemized deductions, credits, and local taxes."
+  ]
+}

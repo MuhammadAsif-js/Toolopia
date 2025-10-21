@@ -59,6 +59,10 @@ const ToolComponents: Record<string, React.ComponentType<any>> = {
   StartupRunwayCalculatorPage: dynamic(() => import('../../tools/startup-runway-calculator/RunwayCalculator'), { ssr: false }),
   // Smart Profitability Dashboard component
   SmartProfitabilityDashboardPage: dynamic(() => import('../../tools/smart-profitability-dashboard/SmartProfitabilityDashboard'), { ssr: false }),
+  // US State Tax Calculator: embed the calculator component
+  USStateTaxCalculatorPage: dynamic(() => import('../../tools/us-state-tax-calculator/AllStatesTaxCalculator'), { ssr: false }),
+  // FinSmart USA: embed the dashboard component
+  FinSmartUSAPage: dynamic(() => import('../../tools/fin-smart-usa/FinSmartUSA'), { ssr: false }),
 };
 
 export default function ArticlePage({ params }: ArticlePageProps) {

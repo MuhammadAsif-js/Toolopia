@@ -14,6 +14,8 @@ export async function GET() {
     '/tools/profit-analyzer',
     '/tools/startup-runway-calculator',
     '/tools/smart-profitability-dashboard',
+    '/tools/us-state-tax-calculator',
+    '/tools/fin-smart-usa',
   ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
