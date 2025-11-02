@@ -1,0 +1,12 @@
+{
+  "title": "Business Valuation Estimator",
+  "subtitle": "Estimate a company's valuation using EBITDA and revenue multiples.",
+  "paragraphs": [
+    "Use EBITDA and revenue multiples to quickly estimate a business valuation. Adjust assumptions to model comparable companies and market conditions.",
+    "Export reports as PDF or copy results to clipboard for sharing with investors or advisors."
+  ],
+  "faqs": [
+    { "q": "What is EBITDA multiple?", "a": "An EBITDA multiple is a valuation metric based on earnings before interest, taxes, depreciation, and amortization." },
+    { "q": "Which multiple should I use?", "a": "Use industry comparables and adjust based on growth, margins, and market conditions." }
+  ]
+}

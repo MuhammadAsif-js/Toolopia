@@ -1,0 +1,12 @@
+{
+  "title": "FinSmart USA — Loans, Savings & Bank Compare",
+  "subtitle": "A compact toolkit to plan EMIs, simulate savings growth, and compare bank rates.",
+  "paragraphs": [
+    "FinSmart USA helps you quickly estimate loan EMIs, project savings growth, and compare bank APYs and fees to make informed personal finance choices.",
+    "This tool is a prototype for quick planning and education. For financial advice, consult a licensed professional."
+  ],
+  "faqs": [
+    { "q": "Are rates live?", "a": "No — bank rates in the tool are sample data and should be updated from official sources." },
+    { "q": "Can I export the amortization schedule?", "a": "Not yet — consider adding an export feature (CSV/PDF) in a follow-up." }
+  ]
+}

@@ -150,7 +150,7 @@ export default function FinSmartUSA() {
 
   return (
     <div className="bg-white/70 dark:bg-gray-900/40 border border-border/60 rounded-2xl p-6 shadow-sm">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto px-2 sm:px-4 lg:px-6 min-w-0">
         <header className="mb-8">
           <h2 className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-300">
             FinSmart USA — Loans · Savings · Bank Compare
@@ -160,14 +160,14 @@ export default function FinSmartUSA() {
           </p>
         </header>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-w-0">
           {/* Loan card */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             className="lg:col-span-2 bg-background/60 border border-border/60 rounded-2xl p-6 shadow"
           >
-            <div className="flex flex-col lg:flex-row gap-6">
+            <div className="flex flex-col lg:flex-row gap-6 min-w-0">
               <div className="w-full lg:w-1/2">
                 <h3 className="text-base sm:text-lg font-semibold text-emerald-600 dark:text-emerald-300">
                   Loan & EMI Planner
@@ -249,7 +249,7 @@ export default function FinSmartUSA() {
                   </div>
                 </div>
 
-                <div className="h-40 bg-background/60 rounded-xl p-2 border border-border/60">
+                <div className="h-40 bg-background/60 rounded-xl p-2 border border-border/60 min-w-0">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={loanChart} margin={{ top: 6, right: 8, left: -12, bottom: 6 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#0f172a44" />
@@ -261,14 +261,14 @@ export default function FinSmartUSA() {
                   </ResponsiveContainer>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 min-w-0">
                   <div className="bg-muted/40 p-3 rounded-lg">
                     <div className="text-xs text-muted-foreground">Total Paid</div>
-                    <div className="text-lg font-semibold">{currency(loanResult.totalPaid)}</div>
+                    <div className="text-lg font-semibold tabular-nums truncate">{currency(loanResult.totalPaid)}</div>
                   </div>
                   <div className="bg-muted/40 p-3 rounded-lg">
                     <div className="text-xs text-muted-foreground">Interest Paid</div>
-                    <div className="text-lg font-semibold">{currency(loanResult.totalInterest)}</div>
+                    <div className="text-lg font-semibold tabular-nums truncate">{currency(loanResult.totalInterest)}</div>
                   </div>
                 </div>
               </div>
@@ -366,7 +366,7 @@ export default function FinSmartUSA() {
                 </button>
               </div>
 
-              <div className="mt-4 h-44 bg-background/60 rounded-xl p-2 border border-border/60">
+              <div className="mt-4 h-44 bg-background/60 rounded-xl p-2 border border-border/60 min-w-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={saveChart} margin={{ top: 6, right: 8, left: -12, bottom: 6 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#0f172a44" />
@@ -378,14 +378,14 @@ export default function FinSmartUSA() {
                 </ResponsiveContainer>
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="mt-3 grid grid-cols-2 gap-3 min-w-0">
                 <div className="bg-muted/40 p-3 rounded-lg">
                   <div className="text-xs text-muted-foreground">Final Balance</div>
-                  <div className="text-lg font-semibold">{currency(savingsResult.final)}</div>
+                  <div className="text-lg font-semibold tabular-nums truncate">{currency(savingsResult.final)}</div>
                 </div>
                 <div className="bg-muted/40 p-3 rounded-lg">
                   <div className="text-xs text-muted-foreground">Total Contributions</div>
-                  <div className="text-lg font-semibold">{currency(Number(monthly) * Number(saveYears) * 12 + Number(initial))}</div>
+                  <div className="text-lg font-semibold tabular-nums truncate">{currency(Number(monthly) * Number(saveYears) * 12 + Number(initial))}</div>
                 </div>
               </div>
             </div>

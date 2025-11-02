@@ -265,15 +265,15 @@ export default function AllStatesTaxCalculator() {
 
   return (
     <div className="bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-black text-slate-900 dark:text-slate-100 rounded-2xl border border-border/60 shadow-sm p-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full mx-auto px-2 sm:px-4 lg:px-6 min-w-0">
         <header className="mb-6">
           <h2 className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-300">US State Tax Calculator</h2>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1">Enter income, choose filing status and a state — get federal + state tax instantly. Data is sample only.</p>
         </header>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+  <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start min-w-0">
           {/* Inputs */}
-          <div className="lg:col-span-2 bg-white/70 dark:bg-gray-900/40 border border-border/60 rounded-2xl p-5 shadow-md">
+          <div className="lg:col-span-2 bg-white/70 dark:bg-gray-900/40 border border-border/60 rounded-2xl p-5 shadow-md min-w-0 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <label className="col-span-1">
                 <div className="text-xs text-muted-foreground">Annual Income</div>
@@ -355,25 +355,25 @@ export default function AllStatesTaxCalculator() {
 
             <div className="mt-6">
               <h4 className="text-sm text-foreground/90">Quick breakdown</h4>
-              <div className="mt-2 grid grid-cols-3 gap-3">
+              <div className="mt-2 grid grid-cols-3 gap-3 min-w-0">
                 <div className="bg-muted/40 p-3 rounded-lg text-center">
                   <div className="text-xs text-muted-foreground">Income</div>
-                  <div className="text-lg font-semibold">{fmt(Number(income))}</div>
+                  <div className="text-lg font-semibold tabular-nums truncate">{fmt(Number(income))}</div>
                 </div>
                 <div className="bg-muted/40 p-3 rounded-lg text-center">
                   <div className="text-xs text-muted-foreground">Federal</div>
-                  <div className="text-lg font-semibold">{fmt(preview.federal)}</div>
+                  <div className="text-lg font-semibold tabular-nums truncate">{fmt(preview.federal)}</div>
                 </div>
                 <div className="bg-muted/40 p-3 rounded-lg text-center">
                   <div className="text-xs text-muted-foreground">State</div>
-                  <div className="text-lg font-semibold">{fmt(preview.state)}</div>
+                  <div className="text-lg font-semibold tabular-nums truncate">{fmt(preview.state)}</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right column: Inline results + chart */}
-          <aside id="tax-result-panel" className="bg-white/70 dark:bg-gray-900/40 border border-border/60 rounded-2xl p-5 shadow-md">
+          <aside id="tax-result-panel" className="bg-white/70 dark:bg-gray-900/40 border border-border/60 rounded-2xl p-5 shadow-md min-w-0 overflow-hidden">
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={showResults ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -400,7 +400,7 @@ export default function AllStatesTaxCalculator() {
             </motion.div>
 
             {/* Chart */}
-            <div className="h-40">
+            <div className="h-40 w-full min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} layout="vertical" margin={{ top: 6, right: 12, left: 20, bottom: 6 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#0f172a44" />

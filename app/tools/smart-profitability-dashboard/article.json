@@ -1,0 +1,12 @@
+{
+  "title": "Smart Profitability Dashboard",
+  "subtitle": "Visualize revenue, expenses and profit with CSV import and PDF export.",
+  "paragraphs": [
+    "Smart Profitability Dashboard helps you monitor monthly revenue, costs and profit, import CSVs, and generate PDF reports for stakeholders.",
+    "Upload or paste CSV data with headers month,revenue,cost,extra to replace the chart data."
+  ],
+  "faqs": [
+    { "q": "What CSV format is supported?", "a": "Headers required: month,revenue,cost,extra. See the example text area for format.", "a": "Headers required: month,revenue,cost,extra." },
+    { "q": "Can I export a PDF report?", "a": "Yes — the tool uses html2canvas and jsPDF to create a downloadable PDF snapshot of the report." }
+  ]
+}

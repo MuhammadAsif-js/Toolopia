@@ -183,7 +183,7 @@ export default function SmartProfitabilityDashboard() {
   }
 
   return (
-    <div className="min-h-[70vh] space-y-8" ref={reportRef}>
+    <div className="min-h-[70vh] space-y-8 px-2 sm:px-4 lg:px-6" ref={reportRef}>
       {/* Subtle gradient background */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(37,99,235,0.08),transparent),radial-gradient(40%_40%_at_100%_20%,rgba(16,185,129,0.08),transparent)]" />
 
@@ -197,11 +197,11 @@ export default function SmartProfitabilityDashboard() {
         <p className="text-sm text-slate-600 dark:text-slate-300">Premium, modern insights to understand revenue, expenses, and profit — at a glance.</p>
       </header>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+  <div className="grid lg:grid-cols-2 gap-8 min-w-0">
         {/* Input Card */}
         <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-lg rounded-2xl border shadow-lg hover:shadow-xl transition p-6">
           <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Input Data</h2>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <Field label="Revenue (current month)">
               <input type="number" min={0} value={rev} onChange={e=>setRev(parseFloat(e.target.value)||0)} className="w-full rounded-md border bg-white/70 dark:bg-slate-900/60 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 border-slate-200 dark:border-slate-700" />
             </Field>
@@ -233,7 +233,7 @@ export default function SmartProfitabilityDashboard() {
         {/* Metrics Card */}
         <div className="bg-white/80 dark:bg-slate-900/60 backdrop-blur-lg rounded-2xl border shadow-lg hover:shadow-xl transition p-6">
           <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Key Metrics</h2>
-          <div className="grid sm:grid-cols-3 gap-4 text-sm">
+          <div className="grid sm:grid-cols-3 gap-4 text-sm min-w-0">
             <Metric label="Total Revenue" value={dispRevenue} prefix="$" />
             <Metric label="Total Profit" value={dispProfit} prefix="$" />
             <Metric label="Profit Margin" value={dispMargin} suffix="%" />
@@ -302,9 +302,9 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 function Metric({ label, value, prefix, suffix }: { label: string; value: number; prefix?: string; suffix?: string }) {
   const formatted = Number.isFinite(value) ? (prefix ?? '') + Math.round(value).toLocaleString() + (suffix ?? '') : '—';
   return (
-    <div className="rounded-xl border bg-white/70 dark:bg-slate-900/40 backdrop-blur p-4 flex flex-col gap-1">
+    <div className="rounded-xl border bg-white/70 dark:bg-slate-900/40 backdrop-blur p-4 flex flex-col gap-1 min-w-0 overflow-hidden">
       <span className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400 font-semibold">{label}</span>
-      <span className="text-lg font-semibold text-slate-900 dark:text-white">{formatted}</span>
+      <span className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white tabular-nums truncate">{formatted}</span>
     </div>
   );
 }

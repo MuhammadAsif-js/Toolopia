@@ -107,14 +107,14 @@ export default function RunwayCalculator(): JSX.Element {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 min-w-0">
       <header className="space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Startup Runway Calculator</h1>
         <p className="text-sm text-muted-foreground max-w-2xl">Model your cash runway, revenue growth and funding injection to understand when you may run out of capital.</p>
       </header>
-      <div className="grid lg:grid-cols-2 gap-10">
+  <div className="grid lg:grid-cols-2 gap-10 min-w-0">
         {/* Inputs */}
-        <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm space-y-6">
+  <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm space-y-6 min-w-0 overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <h2 className="font-semibold tracking-tight text-lg">Inputs</h2>
               <div className="flex items-center gap-2">
@@ -155,7 +155,7 @@ export default function RunwayCalculator(): JSX.Element {
         </div>
         {/* Results & Chart */}
         <div className="space-y-6">
-          <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm">
+          <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm min-w-0 overflow-hidden">
             <h2 className="font-semibold tracking-tight text-lg mb-4">Results</h2>
             <div className="grid sm:grid-cols-3 gap-4 text-sm">
               <Result label="Runway (Months)" value={runwayMonths === Infinity ? '∞' : runwayMonths.toFixed(2)} highlight={warning} />
@@ -169,9 +169,9 @@ export default function RunwayCalculator(): JSX.Element {
               <p className="mt-4 text-xs text-emerald-600 dark:text-emerald-400 font-medium">Revenue covers or exceeds burn — no depletion under current assumptions.</p>
             )}
           </div>
-          <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm">
+          <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm min-w-0 overflow-hidden">
             <h2 className="font-semibold tracking-tight text-lg mb-4">Cash Balance Projection</h2>
-            <div className="h-72">
+            <div className="h-72 min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.4} />

@@ -75,7 +75,7 @@ export function ArticleLayout({ article, children }: ArticleLayoutProps) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <ProgressBar />
       
       <div className="flex flex-col lg:flex-row gap-12">

@@ -1,0 +1,13 @@
+{
+  "title": "Currency Converter",
+  "subtitle": "Convert currencies and common units quickly.",
+  "paragraphs": [
+    "Quickly convert between major currencies using live exchange rates, or perform simple unit conversions (length, weight, temperature). This tool is handy for quick estimates and learning.",
+    "Rates are provided by exchangerate.host for demonstration purposes. For production use, consider an API with guaranteed SLAs and handle rate limits appropriately."
+  ],
+  "faqs": [
+    { "q": "What exchange rates are used?", "a": "We use exchangerate.host free API for sample live rates." },
+    { "q": "How often are rates updated?", "a": "Rates are fetched live when available; consider API limits for production use." },
+    { "q": "Can I convert units too?", "a": "The input supports basic unit conversions for length, weight, and temperature." }
+  ]
+}

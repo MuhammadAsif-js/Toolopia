@@ -101,10 +101,10 @@ export default function Analyzer({
   const inputBase = "w-full rounded-md border bg-background/70 backdrop-blur px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 border-border"
 
   return (
-    <div className="grid lg:grid-cols-2 gap-10">
+    <div className="grid lg:grid-cols-2 gap-10 min-w-0">
       {/* Form */}
-      <div className="space-y-6">
-        <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm">
+      <div className="space-y-6 min-w-0">
+        <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm min-w-0 overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
             <h2 className="font-semibold tracking-tight text-lg">Inputs</h2>
             <div className="flex flex-wrap items-center gap-2">
@@ -117,7 +117,7 @@ export default function Analyzer({
               <button onClick={copySummary} className="text-xs px-3 py-1.5 rounded-md border bg-background/70 hover:bg-accent/60 transition-colors">Copy Summary</button>
             </div>
           </div>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <Field label="Revenue">
               <input type="number" min={0} value={revenue} onChange={e=>setRevenue(Number(e.target.value)||0)} className={inputBase} />
             </Field>
@@ -138,7 +138,7 @@ export default function Analyzer({
             <p className="mt-4 text-sm font-medium text-destructive">Selling price must be greater than variable cost to compute break-even.</p>
           )}
         </div>
-        <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm">
+  <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm min-w-0 overflow-hidden">
           <h2 className="font-semibold tracking-tight text-lg mb-4">Results</h2>
           <div className="grid sm:grid-cols-3 gap-4 text-sm">
             <Result label="Profit Margin" value={invalid? '—' : `${num(profitMargin)}%`} />
@@ -148,9 +148,9 @@ export default function Analyzer({
         </div>
       </div>
       {/* Chart */}
-      <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm flex flex-col">
+  <div className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 shadow-sm flex flex-col min-w-0 overflow-hidden">
         <h2 className="font-semibold tracking-tight text-lg mb-4">Revenue vs Costs</h2>
-        <div className="h-72 w-full">
+  <div className="h-72 w-full min-w-0">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 10, left: 0, right: 10, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.4} />
@@ -184,9 +184,9 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Result({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-border/60 bg-background/60 px-3 py-3 flex flex-col gap-1">
+    <div className="rounded-lg border border-border/60 bg-background/60 px-3 py-3 flex flex-col gap-1 min-w-0 overflow-hidden">
       <span className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold">{label}</span>
-      <span className="text-base font-semibold text-foreground">{value}</span>
+      <span className="text-base sm:text-lg font-semibold text-foreground tabular-nums truncate">{value}</span>
     </div>
   )
 }

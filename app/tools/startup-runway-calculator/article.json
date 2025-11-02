@@ -1,0 +1,12 @@
+{
+  "title": "Startup Runway Calculator",
+  "subtitle": "Estimate how long your startup can operate with current runway and burn rate.",
+  "paragraphs": [
+    "Enter your monthly burn, runway savings, and revenue projections to estimate how many months your startup can continue operating before needing additional funding.",
+    "This is a simple planning tool and should be used alongside detailed financial modeling."
+  ],
+  "faqs": [
+    { "q": "What is runway?", "a": "Runway is the number of months your startup can operate before funds run out at the current burn rate." },
+    { "q": "Can I account for growth?", "a": "Yes — adjust revenue projections and expenses to see updated runway estimates." }
+  ]
+}

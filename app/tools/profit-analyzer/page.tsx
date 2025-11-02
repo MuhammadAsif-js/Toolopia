@@ -1,12 +1,34 @@
-"use client"
-import Analyzer from './tool'
-import { ToolHeader } from '@/components/tool-header'
+import { ArticleLayout } from '@/components/article-layout'
+import ToolComponent from './ToolComponent'
+import data from './article.json'
+import React from 'react'
 
-export default function ProfitAnalyzerPage(){
+export const metadata = {
+  title: data?.title ? `${data.title} - Toolopia` : 'Profit Analyzer - Toolopia',
+  description: data?.subtitle || 'Analyze profit margins and break-even points.',
+}
+
+const article = {
+  title: data.title,
+  description: data.subtitle,
+  publishedDate: '2025-10-02',
+  category: 'Finance',
+  slug: 'profit-analyzer',
+  href: '/tools/profit-analyzer',
+  toolComponent: 'ProfitAnalyzerPage',
+  paragraphs: data.paragraphs,
+  faqs: [],
+}
+
+export default function ProfitAnalyzerPage() {
   return (
-    <div className="container py-8 sm:py-12 space-y-8">
-      <ToolHeader slug="profit-analyzer" />
-      <Analyzer />
-    </div>
+    <ArticleLayout article={article}>
+      <div id="tool-demo">
+        <ToolComponent />
+      </div>
+      {article.paragraphs.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
+    </ArticleLayout>
   )
 }
